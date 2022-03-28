@@ -1,0 +1,17 @@
+@import "../../scss/spacings";
+
+.add-players-container {
+  margin: auto;
+  width: 300px;
+  text-align: center;
+
+  .add-players-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .add-players-form-group {
+    align-items: flex-start;
+    margin: $spacing-3;
+  }
+}

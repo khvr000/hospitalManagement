@@ -1,0 +1,104 @@
+.admitted-details-item-content {
+  display: flex;
+  align-content: flex-end;
+  //justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: 1px solid #ebecf0;
+  cursor: pointer;
+
+  .admitted-detail-item {
+    display: flex;
+    align-items: center;
+    color: #1c252e;
+    padding: 8px 16px;
+  }
+
+  .edit-form {
+    display: flex;
+    width: 36px;
+  }
+
+  .admission-number {
+    width: 100px;
+  }
+
+  .patient-name {
+    width: 150px;
+    padding: 8px 16px;
+  }
+
+  .patient-dob {
+    width: 100px;
+    padding: 8px 16px;
+  }
+
+  .patient-sex {
+    width: 80px;
+    padding: 8px 16px;
+  }
+  .patient-mobile {
+    width: 80px;
+    padding: 8px 16px;
+  }
+  .patient-alternateMobile {
+    width: 80px;
+    padding: 8px 16px;
+  }
+  .patient-careOf {
+    width: 150px;
+    padding: 8px 16px;
+  }
+  .patient-date-of-admission {
+    width: 150px;
+    padding: 8px 16px;
+  }
+  .patient-date-of-surgery {
+    width: 150px;
+    padding: 8px 16px;
+  }
+  .patient-date-of-discharge {
+    width: 150px;
+    padding: 8px 16px;
+  }
+
+  .patient-advance-paid {
+    width: 150px;
+  }
+
+  .patient-amount-remaining {
+    width: 150px;
+  }
+}
+
+.admitted-details-item-additional-content {
+  border: 1px solid #f1f1f1;
+  padding-left: 8px;
+  padding-bottom: 16px;
+  //box-shadow: -1px 5px 2px 2px #f1f1f1;
+
+  .admitted-detail-item {
+    display: flex;
+    align-items: center;
+    color: #1c252e;
+    padding: 8px 16px;
+
+    span {
+      font-weight: 500;
+      color: #788090;
+      padding-right: 8px;
+    }
+  }
+
+  .admitted-details-group-wrapper {
+    display: flex;
+    //justify-content: space-between;
+
+    .patient-operated-for, .patient-address, .patient-dob, .patient-comments {
+      width: 50%;
+      overflow: hidden;
+    }
+
+  }
+
+
+}

@@ -1,0 +1,46 @@
+@import "../../scss/spacings";
+
+.score-tracker-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: $spacing-2;
+  font-weight: bold;
+}
+
+.score-tracker-container {
+
+  .player-data-container {
+
+    margin: $spacing-3 0;
+
+    .player-name-wrapper {
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacing-2;
+      justify-content: space-between;
+
+      .player-name {
+        width: 200px;
+        margin-right: $spacing-2;
+        font-size: 24px;
+      }
+    }
+
+    .player-score-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .player-score-title {
+        width: 200px;
+        margin-right: $spacing-2;
+      }
+
+      .player-score-value {
+        font-size: 40px;
+        font-weight: bold;
+        margin: auto;
+      }
+    }
+  }
+}

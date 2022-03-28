@@ -1,0 +1,12 @@
+.dat-default-private-template {
+    display: flex;
+    width: 100%;
+    flex: 1;
+
+    .dat-default-private-template-content-wrapper {
+        display: flex;
+        flex: 1;
+        overflow: auto;
+        position: relative;
+    }
+}

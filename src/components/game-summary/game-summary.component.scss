@@ -1,0 +1,47 @@
+@import "../../scss/spacings";
+
+.game-summary-container {
+
+  .game-current-winner-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-1;
+    .game-current-winner-title {
+      width: 290px;
+    }
+
+    .game-current-winner-value {
+      font-size: 24px;
+      white-space: nowrap;
+    }
+  }
+
+  .game-win-difference-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-1;
+    justify-content: space-between;
+
+    .game-win-difference-title {
+      width: 200px;
+      margin-right: $spacing-2;
+    }
+
+    .game-win-difference-value {
+      font-size: 44px;
+      font-weight: bold;
+      margin: auto;
+    }
+  }
+
+  .save-game-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: $spacing-2;
+
+    .save-game-button {
+      width: 250px;
+    }
+  }
+
+}

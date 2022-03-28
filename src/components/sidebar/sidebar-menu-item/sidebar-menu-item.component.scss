@@ -1,0 +1,97 @@
+@import './src/scss/spacings';
+@import './src/scss/font-styles';
+
+$DEFAULT_HORIZONTAL_PADDING: $spacing-1-5;
+$ACTIVE_ITEM_HORIZONTAL_PADDING: $spacing-2-5;
+
+
+.dat-sidebar-menu-item-container {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .dat-sidebar-menu-button {
+    width: calc(100% - #{$spacing-1 * 2});
+    margin: 0 auto;
+    padding: $spacing-1 $DEFAULT_HORIZONTAL_PADDING;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-decoration: none;
+    will-change: padding;
+    transition: all 200ms ease;
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    &.active {
+      padding:  $spacing-1 $ACTIVE_ITEM_HORIZONTAL_PADDING;
+    }
+
+    .dat-sidebar-menu-item-icon {
+      margin-right: $spacing-1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      i.material-icons-outlined {
+        font-size: 2rem;
+      }
+
+      span.dat-icon {
+        font-size: 2.1rem;
+      }
+    }
+
+    .dat-sidebar-menu-item-title {
+      font-size: $textLabel-1-fontSize;
+    }
+
+    &.active {
+      .dat-sidebar-menu-item-selected-notch {
+        transform: translateX(- $spacing-1);
+      }
+    }
+
+    .dat-sidebar-menu-item-selected-notch {
+      height: 100%;
+      width: 5px;
+      border-radius: 0 5px 5px 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translateX(calc(-5px - #{$spacing-1}));
+      transform-origin: center;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: all 200ms ease;
+    }
+  }
+
+  &.divider {
+    width: 100%;
+    margin: $spacing-1 0;
+    padding: 0;
+    cursor: default;
+  }
+
+  &.header {
+    padding: 0 $DEFAULT_HORIZONTAL_PADDING;
+    font-size: $paragraph-3-fontSize;
+    margin-bottom: $spacing-1;
+    cursor: default;
+  }
+
+  .dat-sidebar-right-menu {
+    position: absolute;
+    right: $DEFAULT_HORIZONTAL_PADDING;
+    display: flex;
+    align-items: center;
+  }
+}
