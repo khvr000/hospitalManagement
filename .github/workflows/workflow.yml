@@ -14,7 +14,7 @@
           node-version: [14.x]
 
       steps:
-        - uses: actions/checkout@v1
+        - uses: google-github-actions/setup-gcloud@master
         - run: yarn install
         - run: yarn run build
         - uses: khvr000/hospitalManagement@main
