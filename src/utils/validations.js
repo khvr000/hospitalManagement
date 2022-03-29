@@ -238,7 +238,7 @@ export const numToWords = n => {
     let makeGroup = ([ones,tens,huns]) => {
         return [
             num(huns) === 0 ? '' : a[huns] + ' hundred ',
-            num(ones) === 0 ? b[tens] : b[tens] && b[tens] + '-' || '',
+            num(ones) === 0 ? b[tens] : (b[tens] && b[tens] + '-') || '',
             a[tens+ones] || a[ones]
         ].join('');
     };
