@@ -86,12 +86,13 @@ export const getAddressValidation = (address) => {
 
 export const getArrayValidation = (value) => {
     let errorMessage = '';
-    if (value && value.length) {
-        return {
-            error: errorMessage,
-            isValid: !errorMessage,
-        };
+    if (!value || !Array.isArray(value)) {
+        errorMessage = 'Not an array'
     }
+    return {
+        error: errorMessage,
+        isValid: !errorMessage,
+    };
 }
 
 export const getTextValidation = (text) => {

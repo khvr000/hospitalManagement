@@ -93,6 +93,16 @@ import headerImage from "./../../assets/imageForHeader.jpg";
      return `${day}-${updatedMonth}-${year}`;
  }
 
+ const getMultiLineTextForArrayFields = (list) => {
+     if (!Array.isArray(list) || !list.length) {
+         return list + '\n';
+     } else if (list.length === 1) {
+         return list[0] + '\n';
+     } else {
+         return list.reduce((s,listItem, i) => s + `${i+1}. ${listItem} \n`, '\n');
+     }
+ }
+
  const getFirstPageText = (admitForm) => {
      if (!admitForm) {
          return ''
@@ -103,8 +113,8 @@ import headerImage from "./../../assets/imageForHeader.jpg";
      // const amountInWordsString = numToWords(admitForm.advancePaid);
      const text = `This is to certify that ${admitForm.patientName} aged ${age} Years, ${admitForm.sex} , C/O ${admitForm.careOf || ''}, residing in ${admitForm.address}.\n
      Bearing with ID No: - ${admitForm.admission_number} was admitted in SRI DEVI CHANDRA ENT HOSPITAL on ${formatDateString(admitForm.dateOfAdmission)} with\n
-     Diagnosis ${admitForm.diagnosis}\n
-     and the procedure done is ${admitForm.operatedFor} \n
+     Diagnosis ${getMultiLineTextForArrayFields(admitForm.diagnosis)}
+     and the procedure done is ${getMultiLineTextForArrayFields(admitForm.operatedFor)}
      In SRI DEVI CHANDRA HOSPITAL, Mahabubnagar on ${formatDateString(admitForm.dateOfSurgery)} and ${admitForm.sex === 'Male' ? 'he' : 'she'} was discharged on ${formatDateString(admitForm.dateOfDischarge)}.\n
      This is to confirm that medical bills amount to ${totalAmount} Rs/- \n
      Amount in words: ${amountInWordsString} rupees only issued by the hospital are genuine and correct.\n`;

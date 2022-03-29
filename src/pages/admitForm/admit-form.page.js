@@ -31,8 +31,8 @@ const adminStateFreezeObject = Object.freeze({
     dateOfAdmission: '',
     dateOfSurgery: '',
     dateOfDischarge: '',
-    operatedFor: '',
-    diagnosis: '',
+    operatedFor: [],
+    diagnosis: [],
     advancePaid: '',
     amountRemaining: '',
     uploadDocuments: [],
@@ -56,8 +56,8 @@ class AdmitFormPage extends React.Component<Props> {
             dateOfAdmission: '',
             dateOfSurgery: '',
             dateOfDischarge: '',
-            operatedFor: '',
-            diagnosis: '',
+            operatedFor: [],
+            diagnosis: [],
             advancePaid: '',
             amountRemaining: '',
             uploadDocuments: [],
@@ -125,12 +125,12 @@ class AdmitFormPage extends React.Component<Props> {
         }
 
         if (property === 'operatedFor') {
-            const { error } = getTextValidation(value);
+            const { error } = getArrayValidation(value);
             return error;
         }
 
         if (property === 'diagnosis') {
-            const { error } = getTextValidation(value);
+            const { error } = getArrayValidation(value);
             return error;
         }
 
@@ -167,8 +167,8 @@ class AdmitFormPage extends React.Component<Props> {
         const dateOfSurgery = getDateValidation(this.state.admitForm.dateOfSurgery);
         const dateOfDischarge = getDateValidation(this.state.admitForm.dateOfDischarge);
         const address = getAddressValidation(admitForm.address);
-        const operatedFor = getTextValidation(admitForm.operatedFor);
-        const diagnosis = getTextValidation(admitForm.diagnosis);
+        const operatedFor = getArrayValidation(admitForm.operatedFor);
+        const diagnosis = getArrayValidation(admitForm.diagnosis);
         const advancePaid = getAmountValidation(admitForm.advancePaid);
         const amountRemaining = getAmountValidation(admitForm.amountRemaining);
 
@@ -241,7 +241,19 @@ class AdmitFormPage extends React.Component<Props> {
             // push new file to array
             console.log('files received', e);
             value = [ ...this.state.admitForm[type], ...e.target.value];
-        } else if (type === 'agreeTerms') {
+        }
+        // else if (type === 'operatedFor') {
+        //     const newValue = e.target.value;
+        //     const prevOperatedForArray = [...this.state.admitForm.operatedFor];
+        //     const newValueIndex = prevOperatedForArray.indexOf(newValue);
+        //     if (newValueIndex > -1) {
+        //         prevOperatedForArray.splice(newValueIndex, 1);
+        //         value = prevOperatedForArray;
+        //     } else {
+        //         value = [ ...this.state.admitForm.operatedFor, newValue];
+        //     }
+        // }
+        else if (type === 'agreeTerms') {
             value = e.target.checked;
         } else {
             value = e.target.value;

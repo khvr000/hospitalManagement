@@ -1,4 +1,5 @@
 import * as React from "react";
+import styled, { ThemeProvider } from 'styled-components';
 import {
     FormControlLabel,
     FormGroup,
@@ -8,14 +9,48 @@ import {
     TextField,
     Button,
     Link,
-    IconButton,
-    Checkbox, InputLabel, Select, OutlinedInput, MenuItem, ListItemText
+    IconButton
 } from "@material-ui/core";
+
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
 
 import "./admit-form.component.scss";
 
 
-const OPERATED_FOR_DROPDOWN_ITEMS = ['Septoplasty with endoscopic sinus surgery','Septoplasty','Septoplasty endoscopic sinus surgery with debrider assisted','Tympanoplasty under general anaesthesia','Tympanoplasty under local anaesthesia','Modified radical mastoidectomy','Curettage under general anaesthesia','Tonsillectomy by dissection method under general anaesthesia','Adino Tonsillectomy under general anaesthesia','Adino Tonsillectomy under general anaesthesia with coagulation assisted','Micro laryngeal surgery',]
+const OPERATED_FOR_DROPDOWN_ITEMS = [
+    'Septoplasty with endoscopic sinus surgery',
+    'Septoplasty',
+    'Septoplasty endoscopic sinus surgery with debrider assisted',
+    'Tympanoplasty under general anaesthesia',
+    'Tympanoplasty under local anaesthesia',
+    'Modified radical mastoidectomy',
+    'Curettage under general anaesthesia',
+    'Tonsillectomy by dissection method under general anaesthesia',
+    'Adino Tonsillectomy under general anaesthesia',
+    'Adino Tonsillectomy under general anaesthesia with coagulation assisted','Micro laryngeal surgery'
+];
+
+const DIAGNOSIS_FOR_DROPDOWN_ITEMS = [
+    'Deviated nasal septum with septal spur',
+    'Deviated nasal septum with hypertrophied inferior turbinates',
+    'Deviated nasal septum with rhino sinusitis',
+    'Deviated nasal septum with fungal sinusitis',
+    'Deviated nasal septum with bilateral ethmoid sinusitis',
+    'C.S.O.M in right ear',
+    'C.S.O.M in left ear',
+    'C.S.O.M cholesteatoma in right ear',
+    'C.S.O.M cholesteatoma in left ear',
+    'Keratosis obturans',
+    'Tonsillitis',
+    'Chronic adino Tonsillitis',
+    'Chronic laryngitis with vocal polyp'
+];
 
 
 const ITEM_HEIGHT = 48;
@@ -376,53 +411,66 @@ class AdmitFormComponent extends React.Component<Props> {
 
                     <div className="admit-form-group-wrapper">
                         <FormGroup className="input-form-group">
-                            <FormLabel
-                                className="form-label-name"
-                            >
-                                Operated for *
-                            </FormLabel>
-                            {/*<InputLabel id="demo-multiple-checkbox-label">Operated for *</InputLabel>*/}
-                            {/*<Select*/}
-                            {/*    labelId="demo-multiple-checkbox-label"*/}
-                            {/*    id="demo-multiple-checkbox"*/}
-                            {/*    multiple*/}
-                            {/*    value={[]}*/}
-                            {/*    onChange={(e) => handleAdmitFormChange('operatedFor', e)}*/}
-                            {/*    // onChange={this.handleOperatedForDropdownChange}*/}
-                            {/*    input={<OutlinedInput label="Tag" />}*/}
-                            {/*    renderValue={''}*/}
-                            {/*    // renderValue={(selected) => selected.join(', ')}*/}
-                            {/*    MenuProps={MenuProps}*/}
-                            {/*>*/}
-                            {/*    {OPERATED_FOR_DROPDOWN_ITEMS.map((name) => (*/}
-                            {/*        <MenuItem key={name} value={name}>*/}
-                            {/*            <Checkbox checked={admitForm.operatedFor.indexOf(name) > -1} />*/}
-                            {/*            <ListItemText primary={name} />*/}
-                            {/*        </MenuItem>*/}
-                            {/*    ))}*/}
-                            {/*</Select>*/}
-                            <TextField
-                                variant="outlined"
-                                size="small"
-                                // placeholder="patient name"
-                                onChange={(e) => handleAdmitFormChange('operatedFor', e)}
+                        <FormControl sx={{ width: 300 }}>
+                            <InputLabel id="demo-multiple-checkbox-label">Operated for *</InputLabel>
+                            <Select
+                                labelId="demo-multiple-checkbox-label"
+                                id="demo-multiple-checkbox"
+                                multiple
                                 value={admitForm.operatedFor}
-                            />
+                                onChange={(e) => handleAdmitFormChange('operatedFor', e)}
+                                // onChange={this.handleOperatedForDropdownChange}
+                                input={<OutlinedInput label="Tag" />}
+                                // renderValue={''}
+                                renderValue={(selected) => selected.join(', ')}
+                                MenuProps={MenuProps}
+                            >
+                                {OPERATED_FOR_DROPDOWN_ITEMS.map((name) => (
+                                    <MenuItem key={name} value={name}>
+                                        <Checkbox checked={admitForm.operatedFor.indexOf(name) > -1} />
+                                        <ListItemText primary={name} />
+                                    </MenuItem>
+                                ))}
+                            </Select>
                             {admitFormErrors?.operatedFor && <div className="input-form-error-text">{admitFormErrors.operatedFor}</div>}
+                        </FormControl>
                         </FormGroup>
                         <FormGroup className="input-form-group">
-                            <FormLabel
-                                className="form-label-name"
-                            >
-                                Diagnosis *
-                            </FormLabel>
-                            <TextField
-                                variant="outlined"
-                                size="small"
-                                // placeholder="patient name"
-                                value={admitForm.diagnosis}
-                                onChange={(e) => handleAdmitFormChange('diagnosis', e)}
-                            />
+                            {/*<FormLabel*/}
+                            {/*    className="form-label-name"*/}
+                            {/*>*/}
+                            {/*    Diagnosis **/}
+                            {/*</FormLabel>*/}
+                            {/*<TextField*/}
+                            {/*    variant="outlined"*/}
+                            {/*    size="small"*/}
+                            {/*    // placeholder="patient name"*/}
+                            {/*    value={admitForm.diagnosis}*/}
+                            {/*    onChange={(e) => handleAdmitFormChange('diagnosis', e)}*/}
+                            {/*/>*/}
+                            <FormControl sx={{ width: 300 }}>
+                                <InputLabel id="demo-multiple-checkbox-label">Diagnosis *</InputLabel>
+                                <Select
+                                    labelId="demo-multiple-checkbox-label"
+                                    id="demo-multiple-checkbox"
+                                    multiple
+                                    value={admitForm.diagnosis}
+                                    onChange={(e) => handleAdmitFormChange('diagnosis', e)}
+                                    // onChange={this.handleOperatedForDropdownChange}
+                                    input={<OutlinedInput label="Tag" />}
+                                    // renderValue={''}
+                                    renderValue={(selected) => selected.join(', ')}
+                                    MenuProps={MenuProps}
+                                >
+                                    {DIAGNOSIS_FOR_DROPDOWN_ITEMS.map((name) => (
+                                        <MenuItem key={name} value={name}>
+                                            <Checkbox checked={admitForm.diagnosis.indexOf(name) > -1} />
+                                            <ListItemText primary={name} />
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                                {admitFormErrors?.operatedFor && <div className="input-form-error-text">{admitFormErrors.operatedFor}</div>}
+                            </FormControl>
                             {admitFormErrors?.diagnosis && <div className="input-form-error-text">{admitFormErrors.diagnosis}</div>}
                         </FormGroup>
                     </div>

@@ -121,7 +121,6 @@ class AdminDashboardComponent extends React.Component<Props> {
         const { sortDirection, sortBy, selectedIndex, showModal } = this.state;
 
         const filteredPatientsArray = this.getFilteredPatientsArray();
-        console.log(admittedPatientsArray);
 
 
         return (

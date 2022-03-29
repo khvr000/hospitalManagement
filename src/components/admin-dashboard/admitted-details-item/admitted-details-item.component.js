@@ -1,6 +1,8 @@
 import * as React from "react";
-import "./admitted-details-item.component.scss";
 import {Button} from "@material-ui/core";
+import {getFormattedStringFromStringList} from "../../../utils/formatUtils";
+
+import "./admitted-details-item.component.scss";
 
 type Props = {
     admittedFormItem: Object,
@@ -84,7 +86,7 @@ class AdmittedDetailsItemComponent extends React.Component<Props> {
                         </div>
                         <div className="admitted-details-group-wrapper">
                             <div className="patient-operated-for admitted-detail-item">
-                                <span>Operated For: </span>{admittedFormItem.operatedFor}
+                                <span>Operated For: </span>{getFormattedStringFromStringList(admittedFormItem.operatedFor)}
                             </div>
                             <div className="patient-diagnosis admitted-detail-item">
                                 <span>Diagnosis: </span>{admittedFormItem.diagnosis}
