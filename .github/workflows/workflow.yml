@@ -14,10 +14,10 @@
           node-version: [14.x]
 
       steps:
-        - uses: google-github-actions/setup-gcloud@master
+        - uses: actions/checkout@v1
         - run: yarn install
         - run: yarn run build
-        - uses: khvr000/hospitalManagement@main
+        - uses: jakejarvis/s3-sync-action@master
           with:
              args: --acl public-read --follow-symlinks --delete
           env:
