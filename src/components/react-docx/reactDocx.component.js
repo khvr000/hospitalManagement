@@ -3,6 +3,7 @@
  import {amountInWords, numToWords} from "../../utils/validations";
  import {DataTableCell, Table, TableBody, TableCell, TableHeader} from "@david.kucsai/react-pdf-table";
 import headerImage from "./../../assets/imageForHeader.jpg";
+ import {getFormattedStringFromStringList} from "../../utils/formatUtils";
 
  Font.register({
      family: 'Oswald-Bold',
@@ -135,7 +136,7 @@ import headerImage from "./../../assets/imageForHeader.jpg";
         AGE: ${age}\n
         SEX: ${admitForm.sex}\n
         ADDRESS: ${admitForm.address}\n
-        DIAGNOSIS : ${admitForm.diagnosis}\n
+        DIAGNOSIS : ${getFormattedStringFromStringList(admitForm.diagnosis)}\n
         DATE OF ADMISSION: ${formatDateString(admitForm.dateOfAdmission)}\n
         DATE OF SURGERY: ${formatDateString(admitForm.dateOfSurgery)}\n
         DATE OF DISCHARGE: ${formatDateString(admitForm.dateOfDischarge)}\n
@@ -177,8 +178,8 @@ import headerImage from "./../../assets/imageForHeader.jpg";
         AGE: ${age}\n
         SEX: ${admitForm.sex}\n
         ADDRESS: ${admitForm.address}\n
-        DIAGNOSIS : ${admitForm.diagnosis}\n
-        PROCEDURE: ${admitForm.operatedFor}\n
+        DIAGNOSIS : ${getFormattedStringFromStringList(admitForm.diagnosis)}\n
+        PROCEDURE: ${getFormattedStringFromStringList(admitForm.operatedFor)}\n
         DATE OF ADMISSION: ${formatDateString(admitForm.dateOfAdmission)}\n
         DATE OF SURGERY: ${formatDateString(admitForm.dateOfSurgery)}\n
         DATE OF DISCHARGE: ${formatDateString(admitForm.dateOfDischarge)}\n
@@ -205,8 +206,8 @@ import headerImage from "./../../assets/imageForHeader.jpg";
         AGE: ${age}\n
         SEX: ${admitForm.sex}\n
         ADDRESS: ${admitForm.address}\n
-        DIAGNOSIS : ${admitForm.diagnosis}\n
-        PROCEDURE: ${admitForm.operatedFor}\n
+        DIAGNOSIS : ${getFormattedStringFromStringList(admitForm.diagnosis)}\n
+        PROCEDURE: ${getFormattedStringFromStringList(admitForm.operatedFor)}\n
         DATE OF ADMISSION: ${formatDateString(admitForm.dateOfAdmission)}\n
         DATE OF SURGERY: ${formatDateString(admitForm.dateOfSurgery)}\n
         DATE OF DISCHARGE: ${formatDateString(admitForm.dateOfDischarge)}\n

@@ -1,5 +1,7 @@
 import * as React from "react";
-import {Button, FormGroup, FormLabel, Modal, TextField} from "@material-ui/core";
+import { FormGroup, FormLabel, Modal, TextField} from "@material-ui/core";
+import Button from '@mui/material/Button';
+
 
 import "./paymentBreakupModal.scss";
 import classNames from "classnames";
@@ -22,7 +24,7 @@ class PaymentBreakupModalComponent extends React.Component {
 
     render() {
 
-        const { toggleModal, showModal, paymentDetailsForm = {}, selectedAdmissionNumber, admittedPatientsArray, paymentDetailsFormSubmitted, handleBillDetailsFormChange, onSubmitPaymentDetailsForm, billDetailsFormErrors } = this.props;
+        const { toggleModal, showModal, paymentDetailsForm = {}, selectedAdmissionNumber, onClearPaymentDetailsForm, admittedPatientsArray, paymentDetailsFormSubmitted, handleBillDetailsFormChange, onSubmitPaymentDetailsForm, billDetailsFormErrors } = this.props;
         const selectedAdmissionData = admittedPatientsArray.find(item => item.admission_number === selectedAdmissionNumber);
         const admitFormTotalAmount = selectedAdmissionData ? parseInt(selectedAdmissionData.advancePaid) + parseInt(selectedAdmissionData.amountRemaining): 0;
         const dynamicTotalFromInput = this.calculateTotal(paymentDetailsForm);
@@ -49,6 +51,11 @@ class PaymentBreakupModalComponent extends React.Component {
                             </div>
 
                             <div className="modal-content">
+                                <div className="modal-clear-all-wrapper">
+                                    <Button variant="outlined" size="medium" onClick={onClearPaymentDetailsForm}>
+                                        Clear All
+                                    </Button>
+                                </div>
                                 <FormGroup className="input-form-group">
                                     <FormLabel
                                         className="form-label-name"

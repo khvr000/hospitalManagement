@@ -130,6 +130,12 @@ class AdminDashboardPages extends React.Component<Props> {
         });
     }
 
+    handleClearPaymentDetailsForm = () => {
+        this.setState({
+            paymentDetailsForm: paymentDetailsFormFreezeObject
+        });
+    }
+
     render() {
         const { admittedPatients } = this.props;
         const { paymentDetailsForm, billDetailsFormErrors, paymentDetailsFormSubmitted, selectedAdmissionNumber } = this.state;
@@ -158,6 +164,7 @@ class AdminDashboardPages extends React.Component<Props> {
                         handleSetSelectedAdmissionNumber={this.handleSetSelectedAdmissionNumber}
                         handleSetPaymentDetailsFormSubmittedStatus={this.handleSetPaymentDetailsFormSubmittedStatus}
                         onEditAdmitFormClick={this.onEditAdmitFormClick}
+                        onClearPaymentDetailsForm={this.handleClearPaymentDetailsForm}
                     />
                 </div>
 

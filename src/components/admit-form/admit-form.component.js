@@ -7,11 +7,11 @@ import {
     Radio,
     RadioGroup,
     TextField,
-    Button,
     Link,
     IconButton
 } from "@material-ui/core";
 
+import Button from '@mui/material/Button';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -116,7 +116,7 @@ class AdmitFormComponent extends React.Component<Props> {
 
 
     render() {
-        const {admitForm, handleAdmitFormChange, onSubmitAdminForm, admitFormErrors} = this.props;
+        const {admitForm, handleAdmitFormChange, onSubmitAdminForm, admitFormErrors, editModeForAdmitForm, onEditModeClose } = this.props;
         const dateOfToday2= new Date();
         const timeFormatOptions = { hour: 'numeric', minute: 'numeric' };
         // const dateOfToday = dateOfToday2.toLocaleString('en-US', timeFormatOptions);
@@ -132,8 +132,16 @@ class AdmitFormComponent extends React.Component<Props> {
             <div className="admit-form-container">
 
                 <h1 className="admit-form-title">
-                    Admit Form
+                    {editModeForAdmitForm ? 'Edit Admit Form' : 'Admit Form'}
                 </h1>
+                {editModeForAdmitForm ? (
+                    <div className="edit-close-wrapper">
+                        <Button variant="outlined" size="medium" onClick={onEditModeClose}>
+                            <i className="material-icons-outlined">close</i>Cancel
+                        </Button>
+                    </div>
+                ) : null}
+
 
                 <div className="admit-form-content">
                     <div className="admit-form-group-wrapper">
@@ -631,13 +639,12 @@ class AdmitFormComponent extends React.Component<Props> {
 
             <div className="admit-form-footer">
                 <Button
-                    // type="flatPrimary"
                     variant="contained"
                     size="small"
                     onClick={onSubmitAdminForm}
                     disabled={!admitForm.agreeTerms}
                 >
-                    Submit
+                    { editModeForAdmitForm ? 'Save Changes' : 'Submit'}
                 </Button>
 
             </div>

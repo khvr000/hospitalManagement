@@ -19,6 +19,7 @@ import {
 } from "../../utils/validations";
 
 const adminStateFreezeObject = Object.freeze({
+    admission_number: '',
     patientName: '',
     dateOfBirth: '',
     sex: 'Male',
@@ -44,6 +45,7 @@ class AdmitFormPage extends React.Component<Props> {
 
     state = {
         admitForm: {
+            admission_number: '',
             patientName: '',
             dateOfBirth: '',
             sex: 'Male',
@@ -72,24 +74,39 @@ class AdmitFormPage extends React.Component<Props> {
 
     componentDidMount() {
         this.props.getAdmittedPatients();
-    }
-
-    componentDidUpdate(prevProps) {
         const { editModeForAdmitForm, admissionNumberForEditMode, admittedPatients } = this.props;
         if (editModeForAdmitForm && admissionNumberForEditMode) {
             const admitFormDetailsToEdit = admittedPatients.find(patient => patient.admission_number === admissionNumberForEditMode);
-            this.props.setEditModeForAdmitForm(true, null);
+            // this.props.setEditModeForAdmitForm(true, null);
             this.setState({
                 admitForm: admitFormDetailsToEdit
             });
         }
     }
 
+    componentDidUpdate(prevProps) {
+        // const { editModeForAdmitForm, admissionNumberForEditMode, admittedPatients } = this.props;
+        // if (editModeForAdmitForm && admissionNumberForEditMode) {
+        //     const admitFormDetailsToEdit = admittedPatients.find(patient => patient.admission_number === admissionNumberForEditMode);
+        //     this.props.setEditModeForAdmitForm(true, null);
+        //     this.setState({
+        //         admitForm: admitFormDetailsToEdit
+        //     });
+        // }
+    }
+
+
+
 
     resetAdmitForm = () => {
         this.setState({
             admitForm: adminStateFreezeObject
         });
+    }
+
+    handleEditModeClose = () => {
+        this.props.setEditModeForAdmitForm(true, null);
+        this.resetAdmitForm();
     }
 
 
@@ -298,7 +315,7 @@ class AdmitFormPage extends React.Component<Props> {
     }
 
     render() {
-        const { } = this.props;
+        const { editModeForAdmitForm } = this.props;
         const { admitForm, admitFormErrors } = this.state;
         return (
             <>
@@ -313,6 +330,8 @@ class AdmitFormPage extends React.Component<Props> {
                     <AdmitFormComponent
                         admitForm={admitForm}
                         admitFormErrors={admitFormErrors}
+                        editModeForAdmitForm={editModeForAdmitForm}
+                        onEditModeClose={this.handleEditModeClose}
                         handleAdmitFormChange={this.handleAdmitFormChange}
                         onSubmitAdminForm={this.handleSubmitAdmitForm}
                         handleImageFileDelete={this.handleImageFileDelete}

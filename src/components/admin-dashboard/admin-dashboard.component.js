@@ -117,7 +117,7 @@ class AdminDashboardComponent extends React.Component<Props> {
 
     render() {
 
-        const {admittedPatientsArray, paymentDetailsForm, selectedAdmissionNumber, handleBillDetailsFormChange, paymentDetailsFormSubmitted, billDetailsFormErrors, onSubmitPaymentDetailsForm, billDetailsForm, onEditAdmitFormClick } = this.props;
+        const {admittedPatientsArray, paymentDetailsForm, onClearPaymentDetailsForm, selectedAdmissionNumber, handleBillDetailsFormChange, paymentDetailsFormSubmitted, billDetailsFormErrors, onSubmitPaymentDetailsForm, billDetailsForm, onEditAdmitFormClick } = this.props;
         const { sortDirection, sortBy, selectedIndex, showModal } = this.state;
 
         const filteredPatientsArray = this.getFilteredPatientsArray();
@@ -287,6 +287,7 @@ class AdminDashboardComponent extends React.Component<Props> {
                         admittedPatientsArray={admittedPatientsArray}
                         selectedAdmissionNumber={selectedAdmissionNumber}
                         paymentDetailsForm={paymentDetailsForm}
+                        onClearPaymentDetailsForm={onClearPaymentDetailsForm}
                         // billDetailsForm={billDetailsForm}
                     />
                 </div>
