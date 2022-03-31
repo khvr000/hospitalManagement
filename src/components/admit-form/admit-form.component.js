@@ -420,7 +420,7 @@ class AdmitFormComponent extends React.Component<Props> {
                                 value={admitForm.operatedFor}
                                 onChange={(e) => handleAdmitFormChange('operatedFor', e)}
                                 // onChange={this.handleOperatedForDropdownChange}
-                                input={<OutlinedInput label="Tag" />}
+                                input={<OutlinedInput label="operatedFor" />}
                                 // renderValue={''}
                                 renderValue={(selected) => selected.join(', ')}
                                 MenuProps={MenuProps}
@@ -457,7 +457,7 @@ class AdmitFormComponent extends React.Component<Props> {
                                     value={admitForm.diagnosis}
                                     onChange={(e) => handleAdmitFormChange('diagnosis', e)}
                                     // onChange={this.handleOperatedForDropdownChange}
-                                    input={<OutlinedInput label="Tag" />}
+                                    input={<OutlinedInput label="Diagnosis" />}
                                     // renderValue={''}
                                     renderValue={(selected) => selected.join(', ')}
                                     MenuProps={MenuProps}

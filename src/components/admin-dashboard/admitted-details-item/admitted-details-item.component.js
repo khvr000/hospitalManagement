@@ -89,7 +89,7 @@ class AdmittedDetailsItemComponent extends React.Component<Props> {
                                 <span>Operated For: </span>{getFormattedStringFromStringList(admittedFormItem.operatedFor)}
                             </div>
                             <div className="patient-diagnosis admitted-detail-item">
-                                <span>Diagnosis: </span>{admittedFormItem.diagnosis}
+                                <span>Diagnosis: </span>{getFormattedStringFromStringList(admittedFormItem.diagnosis)}
                             </div>
                         </div>
                         <div className="admitted-details-group-wrapper">
