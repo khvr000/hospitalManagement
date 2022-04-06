@@ -258,6 +258,8 @@ class AdmitFormPage extends React.Component<Props> {
             // push new file to array
             console.log('files received', e);
             value = [ ...this.state.admitForm[type], ...e.target.value];
+        } else if (type === 'operatedFor' || type === 'diagnosis') {
+            value = e;
         }
         // else if (type === 'operatedFor') {
         //     const newValue = e.target.value;

@@ -11,6 +11,7 @@ import PingPongHomePage from "./pages/pingPongHome/pingPongHome.pages";
 import AdminDashboardPages from "./pages/adminDashboard/adminDashboard.pages";
 import AdmitFormPage from "./pages/admitForm/admit-form.page";
 import DefaultPrivateTemplate from "./layouts/default-private-template/default-private-template.layout";
+import RedocxComponent from "./components/redocx/redocx.component";
 
 
 type Props = {
@@ -39,7 +40,7 @@ function App(props: Props) {
         <div className="App">
           <Switch>
             <Redirect exact from="/" to="/admitForm" />
-            <Route path={['/login', '/signup', '/forgot-password', '/verify-email', '/default', '/pingpong']}>
+            <Route path={['/login', '/signup', '/forgot-password', '/verify-email', '/default', '/pingpong', '/redocx']}>
               {/*<DefaultPublicTemplate>*/}
               <Switch>
                 <Route path="/login" component={LoginPage} />
@@ -48,6 +49,7 @@ function App(props: Props) {
                 {/*<PrivateRoute path="/pingpong" component={PingPongHomePage} />*/}
                 <Route path="/dashboard" component={AdminDashboardPages} />
                 <Route path="/admitForm" component={AdmitFormPage} />
+                <Route path="/redocx" component={RedocxComponent}/>
 
               </Switch>
               {/*</DefaultPublicTemplate>*/}

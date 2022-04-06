@@ -82,6 +82,11 @@
     .input-form-group {
       width: 200px;
       padding-bottom: 12px;
+
+      &.dropdown {
+        width: 700px;
+      }
+
     }
 
     .form-sex-input {
@@ -108,6 +113,11 @@
           .address {
             width: 300px;
           }
+
+          &.dropdown {
+            width: 50vw;
+          }
+
         }
 
         .radio-form-group {
