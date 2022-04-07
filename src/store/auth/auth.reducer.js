@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     saveAuthUserSignupCallStatus: HttpCallStates.UNTOUCHED,
     signUpData: {},
     admittedPatients: [],
+    interestedPatients: [],
     paymentDetailsData: [],
     editModeForAdmitForm: false
 }
@@ -125,6 +126,14 @@ const appAuthReducer  = (state = INITIAL_STATE, action) => {
         //     return {
         //         ...state,
         //     }
+
+        case AuthTypes.SET__INTEREST_FILLED_PATIENTS: {
+            const { interestedPatients } = action.payload;
+            return {
+                ...state,
+                interestedPatients
+            }
+        }
 
         default: {
             return state;

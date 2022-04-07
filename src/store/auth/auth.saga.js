@@ -3,7 +3,7 @@ import {
     setAuthIsUserLoggedIn,
     setAuthSaveUserLoginCallStatus, setAuthSaveUserLogoutCallStatus,
     setAuthSaveUserSignupCallStatus,
-    setAuthUserSignup, setGetPaymentDetailsForAdmissionNumberCallStatus,
+    setAuthUserSignup, setGetPaymentDetailsForAdmissionNumberCallStatus, setInterestFilledPatients,
     setPaymentDetailsForAdmissionNumber
 } from "./auth.actions";
 import {put, select} from 'redux-saga/effects';
@@ -177,4 +177,35 @@ export function* getPaymentDetailsSaga(action) {
     } catch (e) {
         yield put(setGetPaymentDetailsForAdmissionNumberCallStatus(HttpCallStates.ERROR));
     }
+}
+
+
+export function* saveInterestFormSaga(action) {
+    const { interestForm: admitFormFromState } = action.payload;
+    const authState = yield select(getAuthState);
+
+    try {
+        const url = 'https://zvbd8j7btc.execute-api.ap-south-1.amazonaws.com/stage01/interestform';
+
+        const response = yield rawAxios.post(url, admitFormFromState);
+        alert('interest record saved successfully');
+
+    } catch (e) {
+
+    }
+}
+
+
+export function* getInterestFilledPatientsSaga(action) {
+
+    try {
+        const url = 'https://zvbd8j7btc.execute-api.ap-south-1.amazonaws.com/stage01/interestform';
+        const response = yield rawAxios.get(url);
+        yield put(setInterestFilledPatients(response.data.body.Items));
+
+
+    } catch (e) {
+
+    }
+
 }

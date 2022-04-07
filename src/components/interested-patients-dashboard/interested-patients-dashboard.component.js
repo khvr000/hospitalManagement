@@ -1,16 +1,12 @@
 import * as React from "react";
-import AdmittedDetailsItemComponent from "./admitted-details-item/admitted-details-item.component";
 
-import "./admin-dashboard.component.scss";
+import "./interested-patients-dashboard.component.scss";
 import {sortItems} from "../../utils/validations";
 import {TextField} from "@material-ui/core";
-import ReactDocxComponent from "../react-docx/reactDocx.component";
-import { PDFViewer } from '@react-pdf/renderer';
-import PaymentBreakupModalComponent from "../paymentBreakupModal/paymentBreakupModal.component";
+import InterestedDetailsItemComponent from "./interested-details-item/interested-details-item.component";
 
 type Props = {
     admittedPatientsArray: Array,
-    handleBillDetailsFormChange: Function
 }
 
 const AdmittedDataHeaderTitles = {
@@ -29,7 +25,7 @@ const AdmittedDataHeaderTitles = {
     totalAmount: 'Total Amount'
 }
 
-class AdminDashboardComponent extends React.Component<Props> {
+class InterestedPatientsDashboardComponent extends React.Component<Props> {
 
     state = {
         searchQuery: '',
@@ -41,7 +37,7 @@ class AdminDashboardComponent extends React.Component<Props> {
 
     toggleModal = () => {
         if (this.state.showModal) {
-           this.props.handleSetPaymentDetailsFormSubmittedStatus(false);
+            this.props.handleSetPaymentDetailsFormSubmittedStatus(false);
         }
 
         this.setState(prevState => ({
@@ -83,14 +79,10 @@ class AdminDashboardComponent extends React.Component<Props> {
         let sortedPatientsArray = [];
         admittedPatientsArray.forEach(patientAdmitItem => {
             if (patientAdmitItem.patientName.toLowerCase().includes(searchQuery) ||
-                patientAdmitItem.admission_number.toLowerCase().includes(searchQuery) ||
+                patientAdmitItem.interest_number.toLowerCase().includes(searchQuery) ||
                 patientAdmitItem.mobile.toLowerCase().includes(searchQuery) ||
                 patientAdmitItem.sex.toLowerCase().includes(searchQuery) ||
-                patientAdmitItem.alternateMobile?.toLowerCase().includes(searchQuery) ||
-                // patientAdmitItem.operatedFor?.toLowerCase().includes(searchQuery) ||
-                // patientAdmitItem.diagnosis?.toLowerCase().includes(searchQuery) ||
-                patientAdmitItem.advancePaid?.toLowerCase().includes(searchQuery) ||
-                patientAdmitItem.amountRemaining?.toLowerCase().includes(searchQuery)
+                patientAdmitItem.alternateMobile?.toLowerCase().includes(searchQuery)
             ) {
                 filteredPatientsArray.push(patientAdmitItem);
             }
@@ -107,12 +99,6 @@ class AdminDashboardComponent extends React.Component<Props> {
         });
     }
 
-    handlePrintClick = (admissionNumber) => {
-        this.toggleModal();
-        this.props.handleSetSelectedAdmissionNumber(admissionNumber);
-        this.props.getPaymentDetailsForAdmissionNumber(admissionNumber);
-    }
-
 
 
     render() {
@@ -127,7 +113,7 @@ class AdminDashboardComponent extends React.Component<Props> {
             <div className="admin-dashboard-container">
                 <div className="dashboard-container-header">
                     <h1 className="dashboard-container-title">
-                        Dashboard
+                        Interested Patients
                     </h1>
                 </div>
                 <div className="dashboard-container-content">
@@ -140,7 +126,6 @@ class AdminDashboardComponent extends React.Component<Props> {
                             size="small"
                             placeholder="search "
                         />
-                        {/*<input  onChange={this.handleSearchQuery}/>*/}
                     </div>
 
                     <div className="list-container">
@@ -167,17 +152,6 @@ class AdminDashboardComponent extends React.Component<Props> {
                                     </i>
                                 ) : null}
                             </div>
-                            {/*<div*/}
-                            {/*    className="patient-dob admitted-detail-item"*/}
-                            {/*    onClick={() => this.handleSortClick('dateOfBirth')}*/}
-                            {/*>*/}
-                            {/*    {AdmittedDataHeaderTitles.dateOfBirth}*/}
-                            {/*    {sortBy === 'dateOfBirth' ? (*/}
-                            {/*        <i className="material-icons-outlined dat-reports-dataset-team-sort">*/}
-                            {/*            {sortDirection === 'descending' ? 'arrow_downward' : 'arrow_upward'}*/}
-                            {/*        </i>*/}
-                            {/*    ) : null}*/}
-                            {/*</div>*/}
                             <div
                                 className="patient-sex admitted-detail-item"
                                 onClick={() => this.handleSortClick('sex')}
@@ -212,98 +186,23 @@ class AdminDashboardComponent extends React.Component<Props> {
                             >
                                 {AdmittedDataHeaderTitles.careOf}
                             </div>
-                            <div className="patient-date-of-admission admitted-detail-item"
-                                 onClick={() => this.handleSortClick('dateOfAdmission')}
-                            >
-                                {AdmittedDataHeaderTitles.dateOfAdmission}
-                                {sortBy === 'dateOfAdmission' ? (
-                                    <i className="material-icons-outlined dat-reports-dataset-team-sort">
-                                        {sortDirection === 'descending' ? 'arrow_downward' : 'arrow_upward'}
-                                    </i>
-                                ) : null}
-                            </div>
-                            {/*<div className="patient-date-of-surgery admitted-detail-item"*/}
-                            {/*     onClick={() => this.handleSortClick('dateOfSurgery')}*/}
-                            {/*>*/}
-                            {/*    {AdmittedDataHeaderTitles.dateOfSurgery}*/}
-                            {/*    {sortBy === 'dateOfSurgery' ? (*/}
-                            {/*        <i className="material-icons-outlined dat-reports-dataset-team-sort">*/}
-                            {/*            {sortDirection === 'descending' ? 'arrow_downward' : 'arrow_upward'}*/}
-                            {/*        </i>*/}
-                            {/*    ) : null}*/}
-                            {/*</div>*/}
-                            <div className="patient-date-of-surgery admitted-detail-item"
-                                 onClick={() => this.handleSortClick('dateOfDischarge')}
-                            >
-                                {AdmittedDataHeaderTitles.dateOfDischarge}
-                                {sortBy === 'dateOfDischarge' ? (
-                                    <i className="material-icons-outlined dat-reports-dataset-team-sort">
-                                        {sortDirection === 'descending' ? 'arrow_downward' : 'arrow_upward'}
-                                    </i>
-                                ) : null}
-                            </div>
-                            {/*<div className="patient-advance-paid admitted-detail-item"*/}
-                            {/*     onClick={() => this.handleSortClick('advancePaid')}*/}
-                            {/*>*/}
-                            {/*    {AdmittedDataHeaderTitles.advancePaid}*/}
-                            {/*    {sortBy === 'advancePaid' ? (*/}
-                            {/*        <i className="material-icons-outlined dat-reports-dataset-team-sort">*/}
-                            {/*            {sortDirection === 'descending' ? 'arrow_downward' : 'arrow_upward'}*/}
-                            {/*        </i>*/}
-                            {/*    ) : null}*/}
-                            {/*</div>*/}
-                            <div className="patient-amount-remaining admitted-detail-item"
-                                 onClick={() => this.handleSortClick('amountRemaining')}
-                            >
-                                {AdmittedDataHeaderTitles.totalAmount}
-                                {sortBy === 'totalAmount' ? (
-                                    <i className="material-icons-outlined dat-reports-dataset-team-sort">
-                                        {sortDirection === 'descending' ? 'arrow_downward' : 'arrow_upward'}
-                                    </i>
-                                ) : null}
-                            </div>
                         </div>
 
                         {filteredPatientsArray.map((admittedPatientDataItem, i) => (
-                            <AdmittedDetailsItemComponent
+                            <InterestedDetailsItemComponent
                                 showAccordian={selectedIndex === i}
                                 handleClick={() => this.handleClick(i)}
                                 key={admittedPatientDataItem.patientName}
                                 admittedFormItem={admittedPatientDataItem}
-                                onPrintClick={this.handlePrintClick}
                                 onEditAdmitFormClick={onEditAdmitFormClick}
                             />
                         ))}
                     </div>
                 </div>
-                <div className="">
-                    <PaymentBreakupModalComponent
-                        toggleModal={this.toggleModal}
-                        showModal={showModal}
-                        onSubmitPaymentDetailsForm={() => onSubmitPaymentDetailsForm(selectedAdmissionNumber)}
-                        handleBillDetailsFormChange={handleBillDetailsFormChange}
-                        billDetailsFormErrors={billDetailsFormErrors}
-                        paymentDetailsFormSubmitted={paymentDetailsFormSubmitted}
-                        admittedPatientsArray={admittedPatientsArray}
-                        selectedAdmissionNumber={selectedAdmissionNumber}
-                        paymentDetailsForm={paymentDetailsForm}
-                        onClearPaymentDetailsForm={onClearPaymentDetailsForm}
-                        // billDetailsForm={billDetailsForm}
-                    />
-                </div>
-                {/*{admittedPatientsArray[0] ? (*/}
-                {/*    <div className="pdf-viewer">*/}
-                {/*        <PDFViewer className="pdf-viewer">*/}
-                {/*            <ReactDocxComponent*/}
-                {/*                admitForm={admittedPatientsArray[0]}*/}
-                {/*            />*/}
-                {/*        </PDFViewer>*/}
-                {/*    </div>*/}
-                {/*) : null}*/}
 
             </div>
         );
     }
 }
 
-export default AdminDashboardComponent;
+export default InterestedPatientsDashboardComponent;

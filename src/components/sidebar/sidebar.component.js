@@ -31,6 +31,8 @@ class SidebarComponent extends React.Component<Props> {
         console.log('rendering side  bar rendering side  bar ');
         const dashboardUrl = '/dashboard';
         const admitFormUrl = '/admitForm';
+        const interestFormUrl = '/interestForm';
+        const interestedPatientsUrl = '/interestDashboard';
         const mql = window.matchMedia('(max-width: 768px)');
         let mobileView = mql.matches;
         if (mobileView) {
@@ -76,6 +78,24 @@ class SidebarComponent extends React.Component<Props> {
                         url={admitFormUrl}
                         isActive={(match, location) => {
                             return match || location.pathname.includes('/admitForm');
+                        }}
+                    />
+
+                    <SidebarMenuItemComponent
+                        icon={<span className="dat-icon dat-calibration" />}
+                        name="Interested Patients"
+                        url={interestedPatientsUrl}
+                        isActive={(match, location) => {
+                            return match || location.pathname.includes('/interestDashboard');
+                        }}
+                    />
+
+                    <SidebarMenuItemComponent
+                        icon={<span className="dat-icon dat-calibration" />}
+                        name="Interest Form"
+                        url={interestFormUrl}
+                        isActive={(match, location) => {
+                            return match || location.pathname.includes('/interestForm');
                         }}
                     />
                 </div>

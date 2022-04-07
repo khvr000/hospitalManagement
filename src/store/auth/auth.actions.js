@@ -186,3 +186,24 @@ export const setEditModeForAdmitForm = (editModeForAdmitForm, admissionNumber) =
 
 // SET__ADMITTED_PATIENTS
 // SAVE__ADMIT__FORM
+
+export const saveInterestForm = (interestForm) => {
+    return {
+        type: AuthTypes.SAVE__INTEREST__FORM,
+        payload: { interestForm },
+    };
+}
+
+export const getInterestFilledPatients = () => {
+    return {
+        type: AuthTypes.GET__INTEREST__FORM,
+        payload: { },
+    };
+}
+
+export const setInterestFilledPatients = (interestedPatients) => {
+    return {
+        type: AuthTypes.SET__INTEREST_FILLED_PATIENTS,
+        payload: { interestedPatients },
+    };
+}

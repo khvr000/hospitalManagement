@@ -12,6 +12,8 @@ import AdminDashboardPages from "./pages/adminDashboard/adminDashboard.pages";
 import AdmitFormPage from "./pages/admitForm/admit-form.page";
 import DefaultPrivateTemplate from "./layouts/default-private-template/default-private-template.layout";
 import RedocxComponent from "./components/redocx/redocx.component";
+import InterestFormPage from "./pages/interestForm/interest-form.page";
+import InterestedPatientsDashboardPage from "./pages/interestedPatientsDashboard/interestedPatientsDashboard.page";
 
 
 type Props = {
@@ -55,12 +57,13 @@ function App(props: Props) {
               {/*</DefaultPublicTemplate>*/}
             </Route>
 
-              <Route path={['/dashboard', '/admitForm']}>
+              <Route path={['/dashboard', '/admitForm', '/interestForm', '/interestDashboard']}>
                   <DefaultPrivateTemplate>
                       <Switch>
                           <Route path="/dashboard" component={AdminDashboardPages} />
                           <Route path="/admitForm" component={AdmitFormPage} />
-
+                          <Route path="/interestForm" component={InterestFormPage} />
+                          <Route path="/interestDashboard" component={InterestedPatientsDashboardPage} />
                       </Switch>
                   </DefaultPrivateTemplate>
               </Route>
