@@ -116,6 +116,11 @@ class AdmitFormPage extends React.Component<Props> {
             return error;
         }
 
+        if (property === 'sex') {
+            const { error } = getTextValidation(value);
+            return error;
+        }
+
         if (property === 'admission_number') {
             const { error } = getAddressValidation(value);
             return error;
