@@ -157,7 +157,7 @@ class InterestFormComponent extends React.Component<Props> {
                             <FormLabel
                                 className="form-label-name"
                             >
-                                Date of Birth *
+                                Date of Birth
                             </FormLabel>
                             <TextField
                                 variant="outlined"
@@ -321,13 +321,18 @@ class InterestFormComponent extends React.Component<Props> {
                             >
                                 Comments
                             </FormLabel>
-                            <TextField
-                                variant="outlined"
-                                size="small"
-                                // placeholder="patient name"
-                                value={admitForm.comments}
-                                onChange={(e) => handleAdmitFormChange('comments', e)}
-                            />
+                            <div className="address-container">
+                                <TextField
+                                    className="address"
+                                    variant="outlined"
+                                    multiline
+                                    size="large"
+                                    // placeholder="patient name"
+                                    value={admitForm.comments}
+                                    onChange={(e) => handleAdmitFormChange('comments', e)}
+                                />
+                            </div>
+
                             {admitFormErrors?.comments && <div>{admitFormErrors.comments}</div>}
                         </FormGroup>
                     </div>

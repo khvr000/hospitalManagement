@@ -183,11 +183,12 @@ export function* getPaymentDetailsSaga(action) {
 export function* saveInterestFormSaga(action) {
     const { interestForm: admitFormFromState } = action.payload;
     const authState = yield select(getAuthState);
+    const dateAdded = new Date().getTime();
 
     try {
         const url = 'https://zvbd8j7btc.execute-api.ap-south-1.amazonaws.com/stage01/interestform';
 
-        const response = yield rawAxios.post(url, admitFormFromState);
+        const response = yield rawAxios.post(url, { ...admitFormFromState, dateAdded});
         alert('interest record saved successfully');
 
     } catch (e) {

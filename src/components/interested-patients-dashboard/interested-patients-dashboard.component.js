@@ -10,7 +10,7 @@ type Props = {
 }
 
 const AdmittedDataHeaderTitles = {
-    admissionNumber: 'Admission Number',
+    admissionNumber: 'Serial Number',
     patientName: 'Patient Name',
     dateOfBirth: 'Date of Birth',
     sex: 'Sex',
@@ -22,7 +22,8 @@ const AdmittedDataHeaderTitles = {
     dateOfDischarge: 'Date Of Discharge',
     advancePaid: 'Advance Paid',
     amountRemaining: 'Amount Remaining',
-    totalAmount: 'Total Amount'
+    totalAmount: 'Total Amount',
+    dateAdded: 'Date Added'
 }
 
 class InterestedPatientsDashboardComponent extends React.Component<Props> {
@@ -132,10 +133,10 @@ class InterestedPatientsDashboardComponent extends React.Component<Props> {
                         <div className="admitted-details-item-header-content">
                             <div
                                 className="admission-number admitted-detail-item"
-                                onClick={() => this.handleSortClick('admission_number')}
+                                onClick={() => this.handleSortClick('interest_number')}
                             >
                                 {AdmittedDataHeaderTitles.admissionNumber}
-                                {sortBy === 'admission_number' ? (
+                                {sortBy === 'interest_number' ? (
                                     <i className="material-icons-outlined dat-reports-dataset-team-sort">
                                         {sortDirection === 'descending' ? 'arrow_downward' : 'arrow_upward'}
                                     </i>
@@ -185,6 +186,11 @@ class InterestedPatientsDashboardComponent extends React.Component<Props> {
                                 // onClick={() => this.handleSortClick('careOf')}
                             >
                                 {AdmittedDataHeaderTitles.careOf}
+                            </div>
+                            <div
+                                className="patient-dateAdded admitted-detail-item"
+                            >
+                                {AdmittedDataHeaderTitles.dateAdded}
                             </div>
                         </div>
 

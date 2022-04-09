@@ -105,7 +105,7 @@ class AdmitFormPage extends React.Component<Props> {
     }
 
     handleEditModeClose = () => {
-        this.props.setEditModeForAdmitForm(true, null);
+        this.props.setEditModeForAdmitForm(false, null);
         this.resetAdmitForm();
     }
 

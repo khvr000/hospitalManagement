@@ -125,6 +125,17 @@ export const getDateValidation = (date) => {
     }
 }
 
+export const getNonMandatoryDateValidation = (date) => {
+    let errorMessage = '';
+     if (date && !isDateValid(date)) {
+        errorMessage = 'Please enter valid date';
+    }
+    return {
+        error: errorMessage,
+        isValid: !errorMessage
+    }
+}
+
 
 export const getAmountValidation = (amount) => {
     const MAX_LENGTH = 8;

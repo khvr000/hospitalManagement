@@ -12,7 +12,7 @@ import {
     getAddressValidation,
     getAlternateMobileValidation, getAmountValidation, getArrayValidation,
     getDatasetNameValidation, getDateValidation,
-    getMobileValidation, getTextValidation
+    getMobileValidation, getNonMandatoryDateValidation, getTextValidation
 } from "../../utils/validations";
 import InterestFormComponent from "../../components/interest-form/interest-form.component";
 
@@ -138,7 +138,7 @@ class InterestFormPage extends React.Component<Props> {
         }
 
         if (property === 'dateOfBirth') {
-            const { error } = getDateValidation(value);
+            const { error } = getNonMandatoryDateValidation(value);
             return error;
         }
 
@@ -146,7 +146,7 @@ class InterestFormPage extends React.Component<Props> {
         const patientName = getDatasetNameValidation(this.state.admitForm.patientName);
         const admissionNumber = getAddressValidation(this.state.admitForm.interest_number);
         const mobile = getMobileValidation(this.state.admitForm.mobile);
-        const dateOfBirth = getDateValidation(this.state.admitForm.dateOfBirth);
+        const dateOfBirth = getNonMandatoryDateValidation(this.state.admitForm.dateOfBirth);
         const careOf = getTextValidation(this.state.admitForm.careOf);
         const address = getAddressValidation(admitForm.address);
         const diagnosis = getArrayValidation(admitForm.diagnosis);

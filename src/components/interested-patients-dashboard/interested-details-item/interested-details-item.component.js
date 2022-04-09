@@ -18,6 +18,9 @@ class InterestedDetailsItemComponent extends React.Component<Props> {
     }
 
     formatDateString = (dateString) => {
+        if (!dateString) {
+            return '';
+        }
         const date = new Date(dateString);
         const year = date.getFullYear();
         const month = date.getMonth() + 1;
@@ -53,6 +56,9 @@ class InterestedDetailsItemComponent extends React.Component<Props> {
                     </div>
                     <div className="patient-careOf admitted-detail-item">
                         {admittedFormItem.careOf}
+                    </div>
+                    <div className="patient-date-added admitted-detail-item">
+                        {this.formatDateString(admittedFormItem.dateAdded)}
                     </div>
                 </div>
                 {showAccordian? (
