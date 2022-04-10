@@ -160,14 +160,13 @@ class InterestFormPage extends React.Component<Props> {
                     mobile: mobile.error,
                     dateOfBirth: dateOfBirth.error,
                     address: address.error,
-                    careOf: careOf.error,
                     diagnosis: diagnosis.error,
                 },
             };
         });
 
         return {
-            isValid: patientName.isValid && admissionNumber.isValid && mobile.isValid && dateOfBirth.isValid && address.isValid && careOf.isValid && diagnosis.isValid,
+            isValid: patientName.isValid && admissionNumber.isValid && mobile.isValid && dateOfBirth.isValid && address.isValid && diagnosis.isValid,
             error: {
                 patientName: patientName.error,
                 admissionNumber: admissionNumber.error,

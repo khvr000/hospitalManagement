@@ -42,6 +42,9 @@ class InterestedDetailsItemComponent extends React.Component<Props> {
                     <div className="admission-number admitted-detail-item">
                         {admittedFormItem.interest_number}
                     </div>
+                    <div className="patient-date-added admitted-detail-item">
+                        {this.formatDateString(admittedFormItem.dateAdded)}
+                    </div>
                     <div className="patient-name admitted-detail-item">
                         {admittedFormItem.patientName}
                     </div>
@@ -56,9 +59,6 @@ class InterestedDetailsItemComponent extends React.Component<Props> {
                     </div>
                     <div className="patient-careOf admitted-detail-item">
                         {admittedFormItem.careOf}
-                    </div>
-                    <div className="patient-date-added admitted-detail-item">
-                        {this.formatDateString(admittedFormItem.dateAdded)}
                     </div>
                 </div>
                 {showAccordian? (

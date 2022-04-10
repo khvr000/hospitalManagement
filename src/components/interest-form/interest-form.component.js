@@ -14,6 +14,20 @@ import Button from '@mui/material/Button';
 
 import "./interest-form.scss";
 
+
+const OPERATED_FOR_DROPDOWN_ITEMS = [
+    'Septoplasty with endoscopic sinus surgery',
+    'Septoplasty',
+    'Septoplasty endoscopic sinus surgery with debrider assisted',
+    'Tympanoplasty under general anaesthesia',
+    'Tympanoplasty under local anaesthesia',
+    'Modified radical mastoidectomy',
+    'Curettage under general anaesthesia',
+    'Tonsillectomy by dissection method under general anaesthesia',
+    'Adino Tonsillectomy under general anaesthesia',
+    'Adino Tonsillectomy under general anaesthesia with coagulation assisted','Micro laryngeal surgery'
+];
+
 const DIAGNOSIS_FOR_DROPDOWN_ITEMS = [
     'Deviated nasal septum with septal spur',
     'Deviated nasal septum with hypertrophied inferior turbinates',
@@ -277,6 +291,42 @@ class InterestFormComponent extends React.Component<Props> {
                             {admitFormErrors?.pinCode && <div className="input-form-error-text">{admitFormErrors.pinCode}</div>}
                         </FormGroup>
                     </div>
+
+                    <div className="admit-form-group-wrapper">
+                        <FormGroup className="input-form-group dropdown">
+                            <Autocomplete
+                                multiple
+                                id="tags-filled"
+                                options={OPERATED_FOR_DROPDOWN_ITEMS.map((option) => option)}
+                                value={admitForm.operatedFor}
+                                freeSolo
+                                onChange={(e, value) => {
+                                    handleAdmitFormChange('operatedFor', value);
+                                }}
+                                renderTags={(value, getTagProps) =>
+                                    value.map((option, index) => (
+                                        <Chip
+                                            variant="outlined"
+                                            label={option}
+                                            {...getTagProps({ index })}
+                                        />
+                                    ))
+                                }
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        variant="filled"
+                                        label="Operated For"
+                                        placeholder="Other"
+                                        onChange={(e) => {
+                                            console.log(e.target.value);
+                                        }}
+                                    />
+                                )}
+                            />
+                        </FormGroup>
+                    </div>
+
 
                     <div className="admit-form-group-wrapper">
                         <FormGroup className="input-form-group dropdown">

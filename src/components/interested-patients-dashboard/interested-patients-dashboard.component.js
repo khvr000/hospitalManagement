@@ -143,6 +143,17 @@ class InterestedPatientsDashboardComponent extends React.Component<Props> {
                                 ) : null}
                             </div>
                             <div
+                                className="patient-dateAdded admitted-detail-item"
+                                onClick={() => this.handleSortClick('dateAdded')}
+                            >
+                                {AdmittedDataHeaderTitles.dateAdded}
+                                {sortBy === 'dateAdded' ? (
+                                    <i className="material-icons-outlined dat-reports-dataset-team-sort">
+                                        {sortDirection === 'descending' ? 'arrow_downward' : 'arrow_upward'}
+                                    </i>
+                                ) : null}
+                            </div>
+                            <div
                                 className="patient-name admitted-detail-item"
                                 onClick={() => this.handleSortClick('patientName')}
                             >
@@ -186,11 +197,6 @@ class InterestedPatientsDashboardComponent extends React.Component<Props> {
                                 // onClick={() => this.handleSortClick('careOf')}
                             >
                                 {AdmittedDataHeaderTitles.careOf}
-                            </div>
-                            <div
-                                className="patient-dateAdded admitted-detail-item"
-                            >
-                                {AdmittedDataHeaderTitles.dateAdded}
                             </div>
                         </div>
 
