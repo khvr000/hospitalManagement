@@ -66,7 +66,7 @@ class PaymentBreakupModalComponent extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         // placeholder="patient name"
-                                        value={paymentDetailsForm.roomRent || 0}
+                                        value={paymentDetailsForm.roomRent}
                                         onChange={(e) => handleBillDetailsFormChange('roomRent', e)}
                                     />
                                     {billDetailsFormErrors?.roomRent && <div className="input-form-error-text">{billDetailsFormErrors.roomRent}</div>}
@@ -81,7 +81,7 @@ class PaymentBreakupModalComponent extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         // placeholder="patient name"
-                                        value={paymentDetailsForm.surgeonFee || 0}
+                                        value={paymentDetailsForm.surgeonFee}
                                         onChange={(e) => handleBillDetailsFormChange('surgeonFee', e)}
                                     />
                                     {billDetailsFormErrors?.surgeonFee && <div className="input-form-error-text">{billDetailsFormErrors.surgeonFee}</div>}
@@ -96,7 +96,7 @@ class PaymentBreakupModalComponent extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         // placeholder="patient name"
-                                        value={paymentDetailsForm.otCharges || 0}
+                                        value={paymentDetailsForm.otCharges}
                                         onChange={(e) => handleBillDetailsFormChange('otCharges', e)}
                                     />
                                     {billDetailsFormErrors?.otCharges && <div className="input-form-error-text">{billDetailsFormErrors.otCharges}</div>}
@@ -111,7 +111,7 @@ class PaymentBreakupModalComponent extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         // placeholder="patient name"
-                                        value={paymentDetailsForm.anesthetist || 0}
+                                        value={paymentDetailsForm.anesthetist}
                                         onChange={(e) => handleBillDetailsFormChange('anesthetist', e)}
                                     />
                                     {billDetailsFormErrors?.anesthetist && <div className="input-form-error-text">{billDetailsFormErrors.anesthetist}</div>}
@@ -126,7 +126,7 @@ class PaymentBreakupModalComponent extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         // placeholder="patient name"
-                                        value={paymentDetailsForm.doctorFee || 0}
+                                        value={paymentDetailsForm.doctorFee}
                                         onChange={(e) => handleBillDetailsFormChange('doctorFee', e)}
                                     />
                                     {billDetailsFormErrors?.doctorFee && <div className="input-form-error-text">{billDetailsFormErrors.doctorFee}</div>}
@@ -141,7 +141,7 @@ class PaymentBreakupModalComponent extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         // placeholder="patient name"
-                                        value={paymentDetailsForm.otMedicine || 0}
+                                        value={paymentDetailsForm.otMedicine}
                                         onChange={(e) => handleBillDetailsFormChange('otMedicine', e)}
                                     />
                                     {billDetailsFormErrors?.otMedicine && <div className="input-form-error-text">{billDetailsFormErrors.otMedicine}</div>}
@@ -156,7 +156,7 @@ class PaymentBreakupModalComponent extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         // placeholder="patient name"
-                                        value={paymentDetailsForm.diagnosticCharges || 0}
+                                        value={paymentDetailsForm.diagnosticCharges}
                                         onChange={(e) => handleBillDetailsFormChange('diagnosticCharges', e)}
                                     />
                                     {billDetailsFormErrors?.diagnosticCharges && <div className="input-form-error-text">{billDetailsFormErrors.diagnosticCharges}</div>}
@@ -171,7 +171,7 @@ class PaymentBreakupModalComponent extends React.Component {
                                         variant="outlined"
                                         size="small"
                                         // placeholder="patient name"
-                                        value={paymentDetailsForm.other|| 0}
+                                        value={paymentDetailsForm.other}
                                         onChange={(e) => handleBillDetailsFormChange('other', e)}
                                     />
                                     {billDetailsFormErrors?.other && <div className="input-form-error-text">{billDetailsFormErrors.other}</div>}
@@ -182,7 +182,7 @@ class PaymentBreakupModalComponent extends React.Component {
                                         Grand Total: <span>{admitFormTotalAmount}</span>
                                     </div>
                                     <div className="dynamic-bill-from-input">
-                                        Breakup Total: <span>{dynamicTotalFromInput || 0}</span>
+                                        Breakup Total: <span>{dynamicTotalFromInput}</span>
                                     </div>
                                 </div>
                                 {admitFormTotalAmount !== dynamicTotalFromInput ? (
