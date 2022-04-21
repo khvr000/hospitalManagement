@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 
 import "./paymentBreakupModal.scss";
 import classNames from "classnames";
-import {PDFViewer} from "@react-pdf/renderer";
+import {PDFViewer, PDFDownloadLink} from "@react-pdf/renderer";
 import ReactDocxComponent from "../react-docx/reactDocx.component";
 
 const billDetailsForm = {
@@ -22,12 +22,23 @@ class PaymentBreakupModalComponent extends React.Component {
             + parseInt(paymentDetailsForm.other || 0);
     }
 
+    getPdfFileName = (selectedAdmissionData) => {
+        return `${selectedAdmissionData?.patientName}.pdf`;
+    }
+
+
     render() {
 
         const { toggleModal, showModal, paymentDetailsForm = {}, selectedAdmissionNumber, onClearPaymentDetailsForm, admittedPatientsArray, paymentDetailsFormSubmitted, handleBillDetailsFormChange, onSubmitPaymentDetailsForm, billDetailsFormErrors } = this.props;
         const selectedAdmissionData = admittedPatientsArray.find(item => item.admission_number === selectedAdmissionNumber);
         const admitFormTotalAmount = selectedAdmissionData ? parseInt(selectedAdmissionData.advancePaid) + parseInt(selectedAdmissionData.amountRemaining): 0;
         const dynamicTotalFromInput = this.calculateTotal(paymentDetailsForm);
+        const pdfFileName = this.getPdfFileName(selectedAdmissionData);
+
+        const mql = window.matchMedia('(max-width: 768px)');
+        let mobileView = mql.matches;
+
+
         return (
             <>
                 <Modal
@@ -209,12 +220,37 @@ class PaymentBreakupModalComponent extends React.Component {
                     ) : (
                         <div className="modal-container">
                             <div className="pdf-viewer">
-                                <PDFViewer className="pdf-viewer">
-                                    <ReactDocxComponent
-                                        admitForm={selectedAdmissionData}
-                                        paymentDetailsForm={paymentDetailsForm}
-                                    />
-                                </PDFViewer>
+
+                                {mobileView ? (
+                                    <PDFDownloadLink
+                                        document={
+                                            <ReactDocxComponent admitForm={selectedAdmissionData} paymentDetailsForm={paymentDetailsForm}/>
+                                        }
+                                        fileName={pdfFileName}
+                                    >
+                                        {({ blob, url, loading, error }) =>
+                                            loading ? 'Loading document...' : (
+                                                <div className="download-button-wrapper">
+                                                    <Button
+                                                        variant="contained"
+                                                        size="small"
+                                                    >
+                                                        Download now!
+                                                    </Button>
+                                                </div>
+                                            )
+                                        }
+                                    </PDFDownloadLink>
+                                ) : (
+                                    <PDFViewer className="pdf-viewer">
+                                        <ReactDocxComponent
+                                            admitForm={selectedAdmissionData}
+                                            paymentDetailsForm={paymentDetailsForm}
+                                        />
+                                    </PDFViewer>
+                                )}
+
+
                             </div>
                         </div>
                         )}
