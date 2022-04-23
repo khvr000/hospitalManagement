@@ -1,0 +1,22 @@
+.mb-medicine-details-header-wrapper {
+  display: flex;
+  align-items: center;
+  //justify-content: space-between;
+  padding: 12px;
+  column-gap: 42px;
+
+  .tablet-name {
+    width: 230px;
+  }
+  .quantity, .total {
+    width: 120px;
+  }
+  .rate {
+    width: 120px;
+  }
+}
+
+.mb-medicine-details-add-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
