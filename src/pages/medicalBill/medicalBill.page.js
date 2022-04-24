@@ -15,10 +15,10 @@ class MedicalBillPage extends Component {
     state = {
         medicalBillForm : {
             patientName: '',
-            age: '',
+            dateOfBirth: '',
             sex: '',
             medicineDetails: [
-                {tabletName: '', quantity: null, rate: null}
+                {tabletName: '', quantity: null, price: null}
             ]
         },
         showPdfPreview: false
@@ -28,7 +28,7 @@ class MedicalBillPage extends Component {
         const {medicalBillForm} = this.state;
         const existingMedicineDetails = medicalBillForm.medicineDetails.slice();
         existingMedicineDetails.push({
-            tabletName: '', quantity: null, rate: null
+            tabletName: '', quantity: null, price: null
         });
         this.setState(prevState => ({
             medicalBillForm: {
@@ -54,13 +54,26 @@ class MedicalBillPage extends Component {
         const { medicalBillForm } = this.state;
         const existingMedicineDetails = medicalBillForm.medicineDetails.slice();
         const selectedItem = existingMedicineDetails[index];
-        selectedItem[type] = e.target.value;
-        this.setState(prevState=> ({
-            medicalBillForm: {
-                ...prevState.medicalBillForm,
-                medicineDetails: existingMedicineDetails
+
+        if (!(['patientName', 'dateOfBirth', 'sex'].includes(type))) {
+            selectedItem[type] = e.target.value;
+        }
+        this.setState(prevState=> {
+            if (['patientName', 'dateOfBirth', 'sex'].includes(type)) {
+                return {
+                    medicalBillForm: {
+                        ...prevState.medicalBillForm,
+                        [type]: e.target.value
+                    }
+                }
             }
-        }));
+            return {
+                medicalBillForm: {
+                    ...prevState.medicalBillForm,
+                    medicineDetails: existingMedicineDetails
+                }
+            }
+        });
     }
 
     handleGenerateMedicalBillClick = () => {
@@ -105,12 +118,12 @@ class MedicalBillPage extends Component {
                                 <FormLabel
                                     className="form-label-name"
                                 >
-                                    Date of Birth
+                                    Age
                                 </FormLabel>
                                 <TextField
                                     variant="outlined"
                                     size="small"
-                                    type="date"
+                                    // type="date"
                                     // defaultValue={dateOfToday}
                                     // inputProps={{ min: dateOfToday, max: "2020-05-31" }}
                                     // placeholder="patient name"
@@ -163,6 +176,7 @@ class MedicalBillPage extends Component {
                 <MedicalBillPreviewModalComponent
                     showModal={showPdfPreview}
                     toggleModal={this.toggleModal}
+                    medicalBillForm={medicalBillForm}
                 />
             </div>
         );

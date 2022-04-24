@@ -10,7 +10,7 @@ import ReactDocxComponent from "../../react-docx/reactDocx.component";
 
 class MedicalBillPreviewModalComponent extends Component {
     render() {
-        const { showModal , toggleModal } = this.props;
+        const { showModal , toggleModal, medicalBillForm } = this.props;
         return (
             <>
                 <Modal
@@ -23,6 +23,7 @@ class MedicalBillPreviewModalComponent extends Component {
                     <div className="modal-container">
                         <PDFViewer className="pdf-viewer">
                             <MedicalBillPdfComponent
+                                medicalBillForm={medicalBillForm}
                                 // admitForm={selectedAdmissionData}
                                 // paymentDetailsForm={paymentDetailsForm}
                             />

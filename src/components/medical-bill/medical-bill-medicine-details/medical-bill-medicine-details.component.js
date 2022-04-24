@@ -33,10 +33,10 @@ class MedicalBillMedicineDetailsComponent extends Component {
         return (
             <div>
                 <div className="mb-medicine-details-header-wrapper">
-                    <div className="tablet-name">Tablet Name</div>
+                    <div className="tablet-name">Particulars</div>
                     <div className="quantity">Quantity</div>
-                    <div className="rate">Rate</div>
-                    <div className="total">Total</div>
+                    <div className="price">Unit Price</div>
+                    <div className="total">Amount</div>
                     <div className="delete">Delete</div>
                 </div>
 
@@ -50,7 +50,7 @@ class MedicalBillMedicineDetailsComponent extends Component {
                     ))}
                     <div className="mb-medicine-details-add-wrapper">
                         <Button variant="outlined" onClick={onAddNewMedicineItemClick} size="medium">
-                            <i className="material-icons-outlined">add</i>
+                            Add new <i className="material-icons-outlined">add</i>
                         </Button>
                     </div>
                 </div>

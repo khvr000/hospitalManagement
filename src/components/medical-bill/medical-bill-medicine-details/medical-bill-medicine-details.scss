@@ -11,7 +11,7 @@
   .quantity, .total {
     width: 120px;
   }
-  .rate {
+  .price {
     width: 120px;
   }
 }
@@ -19,4 +19,5 @@
 .mb-medicine-details-add-wrapper {
   display: flex;
   justify-content: space-around;
+  margin: 12px 0;
 }

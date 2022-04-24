@@ -27,11 +27,11 @@ class MedicalBillMedicineDetailsItemComponent extends Component {
                     <TextField
                         variant="outlined"
                         size="small"
-                        value={medicineItem.rate}
-                        onChange={(e) => onMedicalBillFormChange('rate', e)}
-                        className="rate"
+                        value={medicineItem.price}
+                        onChange={(e) => onMedicalBillFormChange('price', e)}
+                        className="price"
                     />
-                    <div className="total">{medicineItem.quantity * medicineItem.rate}</div>
+                    <div className="total">{medicineItem.quantity * medicineItem.price}</div>
 
                     <Button variant="outlined" size="medium" onClick={onDeleteMedicineItemClick}>
                         <i className="material-icons-outlined">delete</i>
