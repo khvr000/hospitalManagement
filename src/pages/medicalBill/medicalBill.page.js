@@ -17,6 +17,8 @@ class MedicalBillPage extends Component {
             patientName: '',
             dateOfBirth: '',
             sex: '',
+            mobile: undefined,
+            invoice: undefined,
             medicineDetails: [
                 {tabletName: '', quantity: null, price: null}
             ]
@@ -55,11 +57,11 @@ class MedicalBillPage extends Component {
         const existingMedicineDetails = medicalBillForm.medicineDetails.slice();
         const selectedItem = existingMedicineDetails[index];
 
-        if (!(['patientName', 'dateOfBirth', 'sex'].includes(type))) {
+        if (!(['patientName', 'dateOfBirth', 'sex', 'mobile', 'invoice'].includes(type))) {
             selectedItem[type] = e.target.value;
         }
         this.setState(prevState=> {
-            if (['patientName', 'dateOfBirth', 'sex'].includes(type)) {
+            if (['patientName', 'dateOfBirth', 'sex', 'mobile', 'invoice'].includes(type)) {
                 return {
                     medicalBillForm: {
                         ...prevState.medicalBillForm,
@@ -103,7 +105,22 @@ class MedicalBillPage extends Component {
                                 <FormLabel
                                     className="form-label-name"
                                 >
-                                    Patient Name *
+                                    Invoice
+                                </FormLabel>
+                                <TextField
+                                    variant="outlined"
+                                    size="small"
+                                    value={medicalBillForm.invoice}
+                                    onChange={(e) => this.handleMedicalBillFormChange('invoice', e)}
+                                />
+                            </FormGroup>
+                        </div>
+                        <div className="mb-form-group-wrapper">
+                            <FormGroup className="input-form-group">
+                                <FormLabel
+                                    className="form-label-name"
+                                >
+                                    Patient Name
                                 </FormLabel>
                                 <TextField
                                     variant="outlined"
@@ -139,7 +156,7 @@ class MedicalBillPage extends Component {
                                 <FormLabel
                                     className="form-label-name"
                                 >
-                                    Sex *
+                                    Sex
                                 </FormLabel>
                                 <RadioGroup
                                     className="form-sex-input"
@@ -150,6 +167,21 @@ class MedicalBillPage extends Component {
                                     <FormControlLabel control={<Radio/>} value="Female" label="Female"/>
                                     <FormControlLabel control={<Radio/>} value="Other" label="Other"/>
                                 </RadioGroup>
+                            </FormGroup>
+                            <FormGroup className="input-form-group">
+                                <FormLabel
+                                    className="form-label-name"
+                                >
+                                    Mobile
+                                </FormLabel>
+                                <TextField
+                                    variant="outlined"
+                                    size="small"
+                                    // placeholder="patient name"
+                                    value={medicalBillForm.mobile}
+                                    onChange={(e) => this.handleMedicalBillFormChange('mobile', e)}
+                                />
+                                {/*{medicalBillForm?.mobile && <div className="input-form-error-text">{medicalBillForm.mobile}</div>}*/}
                             </FormGroup>
                         </div>
 

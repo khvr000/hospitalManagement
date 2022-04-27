@@ -6,52 +6,54 @@ import {formatDateString, getAge} from "../../../utils/dateUtils";
 import {numToWords} from "../../../utils/validations";
 
 import "./medical-bill-pdf.scss";
+import {capitalizeFirstLetter} from "../../../utils/formatUtils";
 
 const TABLE_ROWS_COUNT = 11;
 
-const borderColor = '#E07164'
+const borderColor = '#E0C5C2'
 const TableHeaderStyles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        borderBottomColor: '#E07164',
-        backgroundColor: '#E07164',
+        borderBottomColor: '#E0C5C2',
+        backgroundColor: '#E08D84',
         borderBottomWidth: 1,
         alignItems: 'center',
         height: 24,
         textAlign: 'center',
-        fontStyle: 'bold',
+        // fontStyle: 'bold',
         flexGrow: 1,
-        fontSize: 16,
+        fontSize: 14,
+        fontFamily: 'Times-Bold',
     },
     serial: {
-        width: '12.5%',
+        width: '7.5%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
     },
     description: {
-        width: '31.25%',
+        width: '50%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
     },
     qty: {
-        width: '18.75%',
+        width: '10%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
     },
     rate: {
-        width: '18.75%',
+        width: '15%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
     },
     amount: {
-        width: '18.75%',
+        width: '17.5%',
     },
 });
 
 const TableRowStyles = StyleSheet.create({
     row: {
         flexDirection: 'row',
-        borderBottomColor: '#E07164',
+        borderBottomColor: '#E0C5C2',
         borderBottomWidth: 1,
         alignItems: 'center',
         height: 24,
@@ -60,33 +62,33 @@ const TableRowStyles = StyleSheet.create({
     },
     serial: {
         textAlign: 'center',
-        width: '12.5%',
+        width: '7.5%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
     },
     description: {
-        width: '31.25%',
+        width: '50%',
         textAlign: 'left',
         borderRightColor: borderColor,
         borderRightWidth: 1,
         paddingLeft: 8,
     },
     qty: {
-        width: '18.75%',
+        width: '10%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
         textAlign: 'right',
         paddingRight: 8,
     },
     rate: {
-        width: '18.75%',
+        width: '15%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
         textAlign: 'right',
         paddingRight: 8,
     },
     amount: {
-        width: '18.75%',
+        width: '17.5%',
         textAlign: 'right',
         paddingRight: 8,
     },
@@ -95,7 +97,7 @@ const TableRowStyles = StyleSheet.create({
 const TableEmptyRowStyles = StyleSheet.create({
     row: {
         flexDirection: 'row',
-        borderBottomColor: '#E07164',
+        borderBottomColor: '#E0C5C2',
         borderBottomWidth: 1,
         alignItems: 'center',
         height: 24,
@@ -103,27 +105,27 @@ const TableEmptyRowStyles = StyleSheet.create({
         color: 'white'
     },
     serial: {
-        width: '12.5%',
+        width: '7.5%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
     },
     description: {
-        width: '31.25%',
+        width: '50%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
     },
     qty: {
-        width: '18.75%',
+        width: '10%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
     },
     rate: {
-        width: '18.75%',
+        width: '15%',
         borderRightColor: borderColor,
         borderRightWidth: 1,
     },
     amount: {
-        width: '18.75%',
+        width: '17.5%',
     },
 
 });
@@ -131,12 +133,12 @@ const TableEmptyRowStyles = StyleSheet.create({
 const TableFooterStyles = StyleSheet.create({
     row: {
         flexDirection: 'row',
-        borderBottomColor: '#E07164',
+        borderBottomColor: '#E0C5C2',
         borderBottomWidth: 1,
         alignItems: 'center',
         height: 24,
         fontSize: 14,
-        fontStyle: 'bold',
+        fontFamily: 'Times-Bold',
     },
     description: {
         width: '82.25%',
@@ -152,6 +154,16 @@ const TableFooterStyles = StyleSheet.create({
     },
 });
 
+const TableStyles = StyleSheet.create({
+    tableContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginTop: 24,
+        borderWidth: 1,
+        borderColor: '#E0C5C2',
+    },
+});
+
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'row',
@@ -164,17 +176,24 @@ const styles = StyleSheet.create({
     },
     pageHeading: {
         fontSize: 24,
-        marginTop: 20,
+        // marginTop: 20,
         marginBottom: 20,
         // fontWeight: 'bold',
         fontFamily: 'Times-Bold',
-        textAlign: 'center'
+        // textAlign: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        // width: '165px'
     },
     pageContent: {
-        fontSize: 16,
+        fontSize: 14,
     },
     tableContent: {
         marginTop: 10,
+        fontSize: 14,
+        marginBottom: 10,
     },
     tableHeader: {
         fontFamily: 'Times-Bold',
@@ -190,6 +209,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0,
         justifyContent: 'flex-end',
+        fontFamily: 'Times-Bold',
     },
     section: {
         // margin: 80,
@@ -198,7 +218,8 @@ const styles = StyleSheet.create({
         marginRight: 60,
         marginBottom: 80,
         padding: 10,
-        flexGrow: 1
+        flexGrow: 1,
+        fontSize: 14,
     },
     sectionWithImage: {
         margin: 0,
@@ -238,7 +259,7 @@ const MedicalBillPdfComponent = (props) => {
         return Math.floor(medicineDetails.reduce((s,x) => s + (x.quantity*x.price), 0));
     }
 
-    const amountInWordsString = numToWords(getGrandTotal(medicalBillForm.medicineDetails));
+    const amountInWordsString = capitalizeFirstLetter(numToWords(getGrandTotal(medicalBillForm.medicineDetails)));
 
     const TableHeader = () => (
         <View style={TableHeaderStyles.container}>
@@ -283,7 +304,7 @@ const MedicalBillPdfComponent = (props) => {
         return(
             <View style={TableFooterStyles.row}>
                 <Text style={TableFooterStyles.description}>TOTAL</Text>
-                <Text style={TableFooterStyles.total}>Rs { Math.floor(total)}</Text>
+                <Text style={TableFooterStyles.total}> { Math.floor(total)}</Text>
             </View>
         )
     };
@@ -296,19 +317,21 @@ const MedicalBillPdfComponent = (props) => {
                 <View style={styles.sectionWithImage}>
                     <Image style={styles.headerImage} src={headerImage} />
                     <View style={styles.section}>
-                        <Text style={styles.pageHeading}>Medical Invoice</Text>
+                        <Text style={styles.pageHeading}>Medical Billing Invoice</Text>
                         <view style={styles.formGroupWrapper}>
                             <View style={styles.formGroup}>
+                                <Text style={styles.pageContent}>Invoice: {medicalBillForm.invoice}</Text>
                                 <Text style={styles.pageContent}>Name: {medicalBillForm.patientName}</Text>
                                 <Text style={styles.pageContent}>Sex: {medicalBillForm.sex}</Text>
                             </View>
                             <View style={styles.formGroup}>
-                                <Text style={styles.pageContent}>Age: {medicalBillForm.dateOfBirth}</Text>
                                 <Text style={styles.pageContent}>Date: {formatDateString(new Date())}</Text>
+                                <Text style={styles.pageContent}>Mobile: {medicalBillForm.mobile}</Text>
+                                <Text style={styles.pageContent}>Age: {medicalBillForm.dateOfBirth}</Text>
                             </View>
                         </view>
 
-                        <view style={styles.tableContent}>
+                        <view style={TableStyles.tableContainer}>
                             {/*<Text style={styles.tableHeader}>Medicine Details</Text>*/}
 
                             <TableHeader />
@@ -328,7 +351,10 @@ const MedicalBillPdfComponent = (props) => {
                             {/*</Table>*/}
                         </view>
                         <Text style={styles.tableContent}>
-                            Total in Words: {amountInWordsString} rupees only
+                            In words: {amountInWordsString}rupees only
+                        </Text>
+                        <Text>
+                            Notes:
                         </Text>
                         <Text style={styles.pageFooter}>SIGNATURE</Text>
                     </View>

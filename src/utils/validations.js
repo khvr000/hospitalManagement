@@ -257,7 +257,7 @@ export const numToWords = n => {
     let thousand = (group,i) => group === '' ? group : `${group} ${g[i]}`;
     // execute !
     if (typeof n === 'number') return numToWords(String(n));
-    if (n === '0')             return 'zero';
+    if (n === '0')             return 'zero ';
     return comp (chunk(3)) (reverse) (arr(n))
         .map(makeGroup)
         .map(thousand)

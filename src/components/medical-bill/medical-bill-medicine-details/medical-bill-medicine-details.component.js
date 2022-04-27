@@ -55,6 +55,10 @@ class MedicalBillMedicineDetailsComponent extends Component {
                     </div>
                 </div>
 
+                <div className="mb-medicine-details-footer">
+                    <div className="grand-total">Grand Total: {medicineDetails.reduce((s,x) => s + x.price * x.quantity,0)}</div>
+                </div>
+
             </div>
         );
     }
