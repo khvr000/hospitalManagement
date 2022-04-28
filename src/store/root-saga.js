@@ -4,13 +4,14 @@ import ScoreTrackerTypes from "./score-tracker/score-tracker.types";
 
 import {
     getAdmitFormSaga,
-    getInterestFilledPatientsSaga,
+    getInterestFilledPatientsSaga, getInvoiceDetailsSaga,
     getPaymentDetailsSaga,
     saveAdmitFormSaga,
     saveAuthUserLoginSaga,
     saveAuthUserLogoutSaga,
     saveAuthUserSignupSaga,
     saveInterestFormSaga,
+    saveInvoiceDetailsSaga,
     savePaymentDetailsSaga
 } from "./auth/auth.saga";
 import {saveScoreTrackerCurrentGameSaga} from "./score-tracker/score-tracker.saga";
@@ -28,6 +29,9 @@ export function* watchAuthRequests() {
 
     yield takeEvery(AuthTypes.SAVE__INTEREST__FORM, saveInterestFormSaga);
     yield takeEvery(AuthTypes.GET__INTEREST__FORM, getInterestFilledPatientsSaga);
+
+    yield takeEvery(AuthTypes.GET__INVOICE__DETAILS, getInvoiceDetailsSaga);
+    yield takeEvery(AuthTypes.SAVE__INVOICE__DETAILS, saveInvoiceDetailsSaga);
 }
 
 export function* watchPingPongTrackerRequests() {

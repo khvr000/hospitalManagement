@@ -9,6 +9,29 @@ import MedicalBillPreviewModalComponent
     from "../../components/medical-bill/medical-bill-preview-modal/medical-bill-preview-modal.component";
 import {PDFViewer} from "@react-pdf/renderer";
 import MedicalBillPdfComponent from "../../components/medical-bill/medical-bill-pdf/medical-bill-pdf.component";
+import {
+    getAdmittedPatients, getInvoiceDetails,
+    saveAdmitForm,
+    saveInvoiceDetails,
+    setEditModeForAdmitForm
+} from "../../store/auth/auth.actions";
+import {connect} from "react-redux";
+import {HttpCallStates} from "../../config/http.config";
+
+
+const MedicalBillStateFreezeObject = Object.freeze({
+    medicalBillForm : {
+        patientName: '',
+        dateOfBirth: '',
+        sex: '',
+        mobile: undefined,
+        invoice: undefined,
+        medicineDetails: [
+            {tabletName: '', quantity: null, price: null}
+        ]
+    },
+    showPdfPreview: false
+});
 
 class MedicalBillPage extends Component {
 
@@ -24,6 +47,24 @@ class MedicalBillPage extends Component {
             ]
         },
         showPdfPreview: false
+    }
+
+    componentDidMount() {
+        this.props.getInvoiceDetails();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        // getInvoiceDetailsCallStatus
+        const { invoiceNumber, getInvoiceDetailsCallStatus } = this.props;
+        if (prevProps.getInvoiceDetailsCallStatus === HttpCallStates.LOADING && getInvoiceDetailsCallStatus === HttpCallStates.SUCCESS) {
+            this.setState(prevState => ({
+                ...prevState,
+                medicalBillForm: {
+                    ...prevState.medicalBillForm,
+                    invoice: invoiceNumber
+                }
+            }));
+        }
     }
 
     handleAddNewMedicineItemClick = () => {
@@ -78,10 +119,26 @@ class MedicalBillPage extends Component {
         });
     }
 
+    resetMedicalBillForm = () => {
+        this.setState({
+            ...MedicalBillStateFreezeObject
+        })
+    }
+
     handleGenerateMedicalBillClick = () => {
         this.setState({
             showPdfPreview: true
         })
+
+        const { medicalBillForm } = this.state;
+        const invoiceDetailsToSend = {
+            ...medicalBillForm,
+            invoice_number: medicalBillForm.invoice + ''
+        };
+
+        this.props.saveInvoiceDetails(invoiceDetailsToSend);
+
+        // this.resetMedicalBillForm();
     }
 
     toggleModal = () => {
@@ -98,6 +155,9 @@ class MedicalBillPage extends Component {
         return (
             <div className="medical-bill-container">
                 <h1 className="page-title">Medical Bill</h1>
+                <div className="medical-bill-reset-button">
+                    <Button variant="outlined" type="flatPrimary" onClick={this.resetMedicalBillForm}>Reset</Button>
+                </div>
                 <div className="medical-bill-content">
                     <div className="medical-bill-patient-details-wrapper">
                         <div className="mb-form-group-wrapper">
@@ -105,7 +165,7 @@ class MedicalBillPage extends Component {
                                 <FormLabel
                                     className="form-label-name"
                                 >
-                                    Invoice
+                                    Invoice Number
                                 </FormLabel>
                                 <TextField
                                     variant="outlined"
@@ -113,6 +173,21 @@ class MedicalBillPage extends Component {
                                     value={medicalBillForm.invoice}
                                     onChange={(e) => this.handleMedicalBillFormChange('invoice', e)}
                                 />
+                            </FormGroup>
+                            <FormGroup className="input-form-group">
+                                <FormLabel
+                                    className="form-label-name"
+                                >
+                                    Mobile
+                                </FormLabel>
+                                <TextField
+                                    variant="outlined"
+                                    size="small"
+                                    // placeholder="patient name"
+                                    value={medicalBillForm.mobile}
+                                    onChange={(e) => this.handleMedicalBillFormChange('mobile', e)}
+                                />
+                                {/*{medicalBillForm?.mobile && <div className="input-form-error-text">{medicalBillForm.mobile}</div>}*/}
                             </FormGroup>
                         </div>
                         <div className="mb-form-group-wrapper">
@@ -168,21 +243,7 @@ class MedicalBillPage extends Component {
                                     <FormControlLabel control={<Radio/>} value="Other" label="Other"/>
                                 </RadioGroup>
                             </FormGroup>
-                            <FormGroup className="input-form-group">
-                                <FormLabel
-                                    className="form-label-name"
-                                >
-                                    Mobile
-                                </FormLabel>
-                                <TextField
-                                    variant="outlined"
-                                    size="small"
-                                    // placeholder="patient name"
-                                    value={medicalBillForm.mobile}
-                                    onChange={(e) => this.handleMedicalBillFormChange('mobile', e)}
-                                />
-                                {/*{medicalBillForm?.mobile && <div className="input-form-error-text">{medicalBillForm.mobile}</div>}*/}
-                            </FormGroup>
+
                         </div>
 
 
@@ -215,4 +276,17 @@ class MedicalBillPage extends Component {
     }
 }
 
-export default MedicalBillPage;
+const mapStateToProps = state => {
+    return {
+        invoiceNumber: state.auth.invoiceNumber,
+        getInvoiceDetailsCallStatus: state.auth.getInvoiceDetailsCallStatus
+    }
+};
+
+const mapDispatchToProps = dispatch => ({
+    saveInvoiceDetails: (...args) => dispatch(saveInvoiceDetails(...args)),
+    getInvoiceDetails: (...args) => dispatch(getInvoiceDetails(...args))
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(MedicalBillPage);

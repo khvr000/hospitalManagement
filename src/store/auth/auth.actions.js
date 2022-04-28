@@ -1,5 +1,6 @@
 import AuthTypes from "./auth.types";
 import {HttpCallStates} from "../../config/http.config";
+import {getInvoiceDetailsSaga} from "./auth.saga";
 
 export const setAuthLoginRequiredModal = showModal => ({
     type: AuthTypes.TOGGLE__AUTH__LOGIN_REQUIRED_MODAL,
@@ -205,5 +206,35 @@ export const setInterestFilledPatients = (interestedPatients) => {
     return {
         type: AuthTypes.SET__INTEREST_FILLED_PATIENTS,
         payload: { interestedPatients },
+    };
+}
+
+
+
+export const saveInvoiceDetails = (invoiceDetails) => {
+    return {
+        type: AuthTypes.SAVE__INVOICE__DETAILS,
+        payload: { invoiceDetails }
+    };
+}
+
+export const getInvoiceDetails = () => {
+    return {
+        type: AuthTypes.GET__INVOICE__DETAILS,
+        payload: { }
+    };
+}
+
+export const setGetInvoiceDetailsStatus = (status) => {
+    return {
+        type: AuthTypes.GET__INVOICE__DETAILS__STATUS,
+        payload: { status }
+    };
+}
+
+export const setInvoiceDetails = (invoiceNumber) => {
+    return {
+        type: AuthTypes.SET__INVOICE__DETAILS,
+        payload: { invoiceNumber }
     };
 }

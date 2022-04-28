@@ -1,9 +1,13 @@
 import {
     setAdmittedPatients,
     setAuthIsUserLoggedIn,
-    setAuthSaveUserLoginCallStatus, setAuthSaveUserLogoutCallStatus,
+    setAuthSaveUserLoginCallStatus,
+    setAuthSaveUserLogoutCallStatus,
     setAuthSaveUserSignupCallStatus,
-    setAuthUserSignup, setGetPaymentDetailsForAdmissionNumberCallStatus, setInterestFilledPatients,
+    setAuthUserSignup,
+    setGetInvoiceDetailsStatus,
+    setGetPaymentDetailsForAdmissionNumberCallStatus,
+    setInterestFilledPatients, setInvoiceDetails,
     setPaymentDetailsForAdmissionNumber
 } from "./auth.actions";
 import {put, select} from 'redux-saga/effects';
@@ -209,4 +213,40 @@ export function* getInterestFilledPatientsSaga(action) {
 
     }
 
+}
+
+
+export function* getInvoiceDetailsSaga(action) {
+    // const { admitForm } = action.payload;
+    const { admissionNumber } = action.payload;
+    try {
+        yield put(setGetInvoiceDetailsStatus(HttpCallStates.LOADING));
+        const url = `https://zvbd8j7btc.execute-api.ap-south-1.amazonaws.com/stage01/invoicedetails`;
+
+        const response = yield rawAxios.get(url);
+        const latestInvoiceNumber = +response.data.body.invoice_number + 1;
+        yield put(setInvoiceDetails(latestInvoiceNumber));
+        yield put(setGetInvoiceDetailsStatus(HttpCallStates.SUCCESS));
+    } catch (e) {
+        yield put(setGetPaymentDetailsForAdmissionNumberCallStatus(HttpCallStates.ERROR));
+    }
+}
+
+export function* saveInvoiceDetailsSaga(action) {
+    const { invoiceDetails } = action.payload;
+
+    const data = {
+        ...invoiceDetails
+    }
+
+    try {
+        const url = 'https://zvbd8j7btc.execute-api.ap-south-1.amazonaws.com/stage01/invoicedetails';
+
+        const response = yield rawAxios.post(url, data);
+        // alert('admin record saved successfully');
+        // // set response
+
+    } catch (e) {
+
+    }
 }
