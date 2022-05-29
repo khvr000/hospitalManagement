@@ -3,13 +3,13 @@ import AuthTypes from "./auth/auth.types";
 import ScoreTrackerTypes from "./score-tracker/score-tracker.types";
 
 import {
-    getAdmitFormSaga,
+    getAdmitFormSaga, getDiagnosticReportDetailsSaga,
     getInterestFilledPatientsSaga, getInvoiceDetailsSaga,
     getPaymentDetailsSaga,
     saveAdmitFormSaga,
     saveAuthUserLoginSaga,
     saveAuthUserLogoutSaga,
-    saveAuthUserSignupSaga,
+    saveAuthUserSignupSaga, saveDiagnosticReportDetailsSaga,
     saveInterestFormSaga,
     saveInvoiceDetailsSaga,
     savePaymentDetailsSaga
@@ -32,6 +32,10 @@ export function* watchAuthRequests() {
 
     yield takeEvery(AuthTypes.GET__INVOICE__DETAILS, getInvoiceDetailsSaga);
     yield takeEvery(AuthTypes.SAVE__INVOICE__DETAILS, saveInvoiceDetailsSaga);
+
+    yield takeEvery(AuthTypes.GET__DIAGNOSTIC_REPORT_NUMBER__DETAILS, getDiagnosticReportDetailsSaga);
+    yield takeEvery(AuthTypes.SAVE__DIAGNOSTIC_REPORT_NUMBER__DETAILS, saveDiagnosticReportDetailsSaga);
+
 }
 
 export function* watchPingPongTrackerRequests() {

@@ -238,3 +238,31 @@ export const setInvoiceDetails = (invoiceNumber) => {
         payload: { invoiceNumber }
     };
 }
+
+export const saveDiagnosticReportNumberDetails = () => {
+    return {
+        type: AuthTypes.SAVE__DIAGNOSTIC_REPORT_NUMBER__DETAILS,
+        payload: { }
+    }
+};
+
+export const getDiagnosticReportNumberDetails = () => {
+    return {
+        type: AuthTypes.GET__DIAGNOSTIC_REPORT_NUMBER__DETAILS,
+        payload: { }
+    }
+};
+
+export const setGetDiagnosticReportNumberDetailsStatus = (status) => {
+    return {
+        type: AuthTypes.GET__DIAGNOSTIC_REPORT_NUMBER__DETAILS__STATUS,
+        payload: { status }
+    };
+}
+
+export const setDiagnosticReportNumberDetails = (diagnosticReportNumber) => {
+    return {
+        type: AuthTypes.SET__DIAGNOSTIC_REPORT_NUMBER__DETAILS,
+        payload: { diagnosticReportNumber }
+    };
+}

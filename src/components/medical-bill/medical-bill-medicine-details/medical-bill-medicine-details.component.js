@@ -33,8 +33,11 @@ class MedicalBillMedicineDetailsComponent extends Component {
         return (
             <div>
                 <div className="mb-medicine-details-header-wrapper">
-                    <div className="tablet-name">Particulars</div>
                     <div className="quantity">Quantity</div>
+                    <div className="tablet-name">Particulars</div>
+                    <div className="batch-no">Batch No</div>
+                    <div className="mfd-by">Mfd. by</div>
+                    <div className="date-of-exp">Dt. of Exp.</div>
                     <div className="price">Unit Price</div>
                     <div className="total">Amount</div>
                     <div className="delete">Delete</div>

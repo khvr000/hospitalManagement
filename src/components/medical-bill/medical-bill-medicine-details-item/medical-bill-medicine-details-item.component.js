@@ -13,6 +13,13 @@ class MedicalBillMedicineDetailsItemComponent extends Component {
                     <TextField
                         variant="outlined"
                         size="small"
+                        value={medicineItem.quantity}
+                        onChange={(e) => onMedicalBillFormChange('quantity', e)}
+                        className="quantity"
+                    />
+                    <TextField
+                        variant="outlined"
+                        size="small"
                         value={medicineItem.tabletName}
                         onChange={(e) => onMedicalBillFormChange('tabletName', e)}
                         className="tablet-name"
@@ -20,9 +27,23 @@ class MedicalBillMedicineDetailsItemComponent extends Component {
                     <TextField
                         variant="outlined"
                         size="small"
-                        value={medicineItem.quantity}
-                        onChange={(e) => onMedicalBillFormChange('quantity', e)}
-                        className="quantity"
+                        value={medicineItem.batchNo}
+                        onChange={(e) => onMedicalBillFormChange('batchNo', e)}
+                        className="batchNo"
+                    />
+                    <TextField
+                        variant="outlined"
+                        size="small"
+                        value={medicineItem.mfdBy}
+                        onChange={(e) => onMedicalBillFormChange('mfdBy', e)}
+                        className="mfdBy"
+                    />
+                    <TextField
+                        variant="outlined"
+                        size="small"
+                        value={medicineItem.dateOfExp}
+                        onChange={(e) => onMedicalBillFormChange('dateOfExp', e)}
+                        className="dateOfExp"
                     />
                     <TextField
                         variant="outlined"

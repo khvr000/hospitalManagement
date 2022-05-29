@@ -11,7 +11,8 @@ const INITIAL_STATE = {
     interestedPatients: [],
     paymentDetailsData: [],
     editModeForAdmitForm: false,
-    getInvoiceDetailsCallStatus: HttpCallStates.UNTOUCHED
+    getInvoiceDetailsCallStatus: HttpCallStates.UNTOUCHED,
+    getDiagnosticReportNumberDetailsCallStatus: HttpCallStates.UNTOUCHED,
 }
 
 const appAuthReducer  = (state = INITIAL_STATE, action) => {
@@ -150,6 +151,23 @@ const appAuthReducer  = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 getInvoiceDetailsCallStatus: status
+            }
+        }
+
+        case AuthTypes.SET__DIAGNOSTIC_REPORT_NUMBER__DETAILS: {
+            const { diagnosticReportNumber } = action.payload;
+            return {
+                ...state,
+                diagnosticReportNumber
+            }
+        }
+
+        case AuthTypes.GET__DIAGNOSTIC_REPORT_NUMBER__DETAILS__STATUS: {
+            const { status } = action.payload;
+
+            return {
+                ...state,
+                getDiagnosticReportNumberDetailsCallStatus: status
             }
         }
 

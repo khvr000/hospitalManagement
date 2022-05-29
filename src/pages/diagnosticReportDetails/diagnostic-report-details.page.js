@@ -1,132 +1,118 @@
 import React, {Component} from 'react';
 import {FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup, TextField} from "@material-ui/core";
 
-import "./medicalBill.page.scss";
-import MedicalBillMedicineDetailsComponent
-    from "../../components/medical-bill/medical-bill-medicine-details/medical-bill-medicine-details.component";
+import "./diagnostic-report-details.page.scss";
 import {Button} from "@mui/material";
-import MedicalBillPreviewModalComponent
-    from "../../components/medical-bill/medical-bill-preview-modal/medical-bill-preview-modal.component";
-import {PDFViewer} from "@react-pdf/renderer";
-import MedicalBillPdfComponent from "../../components/medical-bill/medical-bill-pdf/medical-bill-pdf.component";
-import {
-    getAdmittedPatients, getInvoiceDetails,
-    saveAdmitForm,
-    saveInvoiceDetails,
-    setEditModeForAdmitForm
-} from "../../store/auth/auth.actions";
+import { getDiagnosticReportNumberDetails,  saveDiagnosticReportNumberDetails} from "../../store/auth/auth.actions";
 import {connect} from "react-redux";
 import {HttpCallStates} from "../../config/http.config";
+import DiagnosticReportDetailsComponent
+    from "../../components/diagnostic-report/diagnostic-report-details/diagnostic-report-details.component";
+import DiagnosticReportPreviewModalComponent
+    from "../../components/diagnostic-report/diagnostic-report-preview-modal/diagnostic-report-preview-modal.component";
 
 
 const MedicalBillStateFreezeObject = Object.freeze({
-    medicalBillForm : {
+    diagnosticReportForm : {
         patientName: '',
         dateOfBirth: '',
         sex: '',
         mobile: undefined,
-        invoice: undefined,
-        medicineDetails: [
+        reportNumber: undefined,
+        diagnosticReportDetails: [
             {tabletName: '', quantity: null, price: null}
         ]
     },
     showPdfPreview: false
 });
 
-class MedicalBillPage extends Component {
+class DiagnosticReportPage extends Component {
 
     state = {
-        medicalBillForm : {
+        diagnosticReportForm : {
             patientName: '',
             dateOfBirth: '',
             sex: '',
             mobile: undefined,
-            invoice: undefined,
-            medicineDetails: [
-                {
-                    tabletName: '',
-                    quantity: null,
-                    price: null,
-                    batchNo: '',
-                    mfdBy: '',
-                    dateOfExp: ''
-                }
+            reportNumber: undefined,
+            diagnosticReportDetails: [
+                {tabletName: '', quantity: null, price: null}
             ]
         },
         showPdfPreview: false
     }
 
     componentDidMount() {
-        this.props.getInvoiceDetails();
+        this.props.getDiagnosticReportNumberDetails();
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // getInvoiceDetailsCallStatus
-        const { invoiceNumber, getInvoiceDetailsCallStatus } = this.props;
-        if (prevProps.getInvoiceDetailsCallStatus === HttpCallStates.LOADING && getInvoiceDetailsCallStatus === HttpCallStates.SUCCESS) {
+        // getDiagnosticReportNumberDetailsCallStatus
+        const { diagnosticReportNumber, getDiagnosticReportNumberDetailsCallStatus } = this.props;
+        if (prevProps.getDiagnosticReportNumberDetailsCallStatus === HttpCallStates.LOADING && getDiagnosticReportNumberDetailsCallStatus === HttpCallStates.SUCCESS) {
             this.setState(prevState => ({
                 ...prevState,
-                medicalBillForm: {
-                    ...prevState.medicalBillForm,
-                    invoice: invoiceNumber
+                diagnosticReportForm: {
+                    ...prevState.diagnosticReportForm,
+                    reportNumber: diagnosticReportNumber
                 }
             }));
         }
     }
 
     handleAddNewMedicineItemClick = () => {
-        const {medicalBillForm} = this.state;
-        const existingMedicineDetails = medicalBillForm.medicineDetails.slice();
+        const {diagnosticReportForm} = this.state;
+        const existingMedicineDetails = diagnosticReportForm.diagnosticReportDetails.slice();
         existingMedicineDetails.push({
             tabletName: '', quantity: null, price: null
         });
         this.setState(prevState => ({
-            medicalBillForm: {
-                ...prevState.medicalBillForm,
-                medicineDetails: existingMedicineDetails
+            diagnosticReportForm: {
+                ...prevState.diagnosticReportForm,
+                diagnosticReportDetails: existingMedicineDetails
             }
         }));
     };
 
     handleDeleteMedicineItemClick = (index) => {
-        const { medicalBillForm } = this.state;
-        const existingMedicineDetails = medicalBillForm.medicineDetails.slice();
+        const { diagnosticReportForm } = this.state;
+        const existingMedicineDetails = diagnosticReportForm.diagnosticReportDetails.slice();
         existingMedicineDetails.splice(index, 1);
         this.setState(prevState=> ({
-            medicalBillForm: {
-                ...prevState.medicalBillForm,
-                medicineDetails: existingMedicineDetails
+            diagnosticReportForm: {
+                ...prevState.diagnosticReportForm,
+                diagnosticReportDetails: existingMedicineDetails
             }
         }));
     }
 
-    handleMedicalBillFormChange = (type, e, index) => {
-        const { medicalBillForm } = this.state;
-        const existingMedicineDetails = medicalBillForm.medicineDetails.slice();
+    handleDiagnosticReportFormChange = (type, e, index) => {
+        const { diagnosticReportForm } = this.state;
+        const existingMedicineDetails = diagnosticReportForm.diagnosticReportDetails.slice();
         const selectedItem = existingMedicineDetails[index];
 
-        if (!(['patientName', 'dateOfBirth', 'sex', 'mobile', 'invoice'].includes(type))) {
+        if (!(['patientName', 'dateOfBirth', 'sex', 'mobile', 'reportNumber'].includes(type))) {
             selectedItem[type] = e.target.value;
         }
         this.setState(prevState=> {
-            if (['patientName', 'dateOfBirth', 'sex', 'mobile', 'invoice'].includes(type)) {
+            if (['patientName', 'dateOfBirth', 'sex', 'mobile', 'reportNumber'].includes(type)) {
                 return {
-                    medicalBillForm: {
-                        ...prevState.medicalBillForm,
+                    diagnosticReportForm: {
+                        ...prevState.diagnosticReportForm,
                         [type]: e.target.value
                     }
                 }
             }
             return {
-                medicalBillForm: {
-                    ...prevState.medicalBillForm,
-                    medicineDetails: existingMedicineDetails
+                diagnosticReportForm: {
+                    ...prevState.diagnosticReportForm,
+                    diagnosticReportDetails: existingMedicineDetails
                 }
             }
         });
     }
 
-    resetMedicalBillForm = () => {
+    resetDiagnosticReportForm = () => {
         this.setState({
             ...MedicalBillStateFreezeObject
         })
@@ -137,15 +123,15 @@ class MedicalBillPage extends Component {
             showPdfPreview: true
         })
 
-        const { medicalBillForm } = this.state;
+        const { diagnosticReportForm } = this.state;
         const invoiceDetailsToSend = {
-            ...medicalBillForm,
-            invoice_number: medicalBillForm.invoice + ''
+            ...diagnosticReportForm,
+            report_number: diagnosticReportForm.reportNumber + ''
         };
 
-        this.props.saveInvoiceDetails(invoiceDetailsToSend);
+        this.props.saveDiagnosticReportNumberDetails(invoiceDetailsToSend);
 
-        // this.resetMedicalBillForm();
+        // this.resetDiagnosticReportForm();
     }
 
     toggleModal = () => {
@@ -157,13 +143,13 @@ class MedicalBillPage extends Component {
 
     render() {
 
-        const { medicalBillForm, showPdfPreview } = this.state;
+        const { diagnosticReportForm, showPdfPreview } = this.state;
 
         return (
             <div className="medical-bill-container">
-                <h1 className="page-title">Medical Bill</h1>
+                <h1 className="page-title">Diagnostic Report</h1>
                 <div className="medical-bill-reset-button">
-                    <Button variant="outlined" type="flatPrimary" onClick={this.resetMedicalBillForm}>Reset</Button>
+                    <Button variant="outlined" type="flatPrimary" onClick={this.resetDiagnosticReportForm}>Reset</Button>
                 </div>
                 <div className="medical-bill-content">
                     <div className="medical-bill-patient-details-wrapper">
@@ -172,13 +158,13 @@ class MedicalBillPage extends Component {
                                 <FormLabel
                                     className="form-label-name"
                                 >
-                                    Invoice Number
+                                    Report Number
                                 </FormLabel>
                                 <TextField
                                     variant="outlined"
                                     size="small"
-                                    value={medicalBillForm.invoice}
-                                    onChange={(e) => this.handleMedicalBillFormChange('invoice', e)}
+                                    value={diagnosticReportForm.reportNumber}
+                                    onChange={(e) => this.handleDiagnosticReportFormChange('reportNumber', e)}
                                 />
                             </FormGroup>
                             <FormGroup className="input-form-group">
@@ -191,10 +177,10 @@ class MedicalBillPage extends Component {
                                     variant="outlined"
                                     size="small"
                                     // placeholder="patient name"
-                                    value={medicalBillForm.mobile}
-                                    onChange={(e) => this.handleMedicalBillFormChange('mobile', e)}
+                                    value={diagnosticReportForm.mobile}
+                                    onChange={(e) => this.handleDiagnosticReportFormChange('mobile', e)}
                                 />
-                                {/*{medicalBillForm?.mobile && <div className="input-form-error-text">{medicalBillForm.mobile}</div>}*/}
+                                {/*{diagnosticReportForm?.mobile && <div className="input-form-error-text">{diagnosticReportForm.mobile}</div>}*/}
                             </FormGroup>
                         </div>
                         <div className="mb-form-group-wrapper">
@@ -207,8 +193,8 @@ class MedicalBillPage extends Component {
                                 <TextField
                                     variant="outlined"
                                     size="small"
-                                    value={medicalBillForm.patientName}
-                                    onChange={(e) => this.handleMedicalBillFormChange('patientName', e)}
+                                    value={diagnosticReportForm.patientName}
+                                    onChange={(e) => this.handleDiagnosticReportFormChange('patientName', e)}
                                     // placeholder="patient name"
                                 />
                                 {/*{admitFormErrors?.patientName && <div className="input-form-error-text">{admitFormErrors.patientName}</div>}*/}
@@ -226,8 +212,8 @@ class MedicalBillPage extends Component {
                                     // defaultValue={dateOfToday}
                                     // inputProps={{ min: dateOfToday, max: "2020-05-31" }}
                                     // placeholder="patient name"
-                                    value={medicalBillForm.dateOfBirth}
-                                    onChange={(e) => this.handleMedicalBillFormChange('dateOfBirth', e)}
+                                    value={diagnosticReportForm.dateOfBirth}
+                                    onChange={(e) => this.handleDiagnosticReportFormChange('dateOfBirth', e)}
                                 />
                                 {/*{admitFormErrors?.dateOfBirth && <div className="input-form-error-text">{admitFormErrors.dateOfBirth}</div>}*/}
                             </FormGroup>
@@ -242,8 +228,8 @@ class MedicalBillPage extends Component {
                                 </FormLabel>
                                 <RadioGroup
                                     className="form-sex-input"
-                                    value={medicalBillForm.sex}
-                                    onChange={(e) => this.handleMedicalBillFormChange('sex', e)}
+                                    value={diagnosticReportForm.sex}
+                                    onChange={(e) => this.handleDiagnosticReportFormChange('sex', e)}
                                 >
                                     <FormControlLabel control={<Radio/>} value="Male" label="Male"/>
                                     <FormControlLabel control={<Radio/>} value="Female" label="Female"/>
@@ -255,15 +241,15 @@ class MedicalBillPage extends Component {
 
 
                     </div>
-                    <MedicalBillMedicineDetailsComponent
-                        medicineDetails={medicalBillForm.medicineDetails}
-                        onMedicalBillFormChange={this.handleMedicalBillFormChange}
+                    <DiagnosticReportDetailsComponent
+                        diagnosticReportDetails={diagnosticReportForm.diagnosticReportDetails}
+                        onDiagnosticReportFormChange={this.handleDiagnosticReportFormChange}
                         onAddNewMedicineItemClick={this.handleAddNewMedicineItemClick}
                         onDeleteMedicineItemClick={this.handleDeleteMedicineItemClick}
                     />
                 </div>
                 <div className="medical-bill-footer">
-                    <Button variant="outlined" type="flatPrimary" onClick={this.handleGenerateMedicalBillClick}>Generate Medical Bill</Button>
+                    <Button variant="outlined" type="flatPrimary" onClick={this.handleGenerateMedicalBillClick}>Generate Diagnostic Report</Button>
                 </div>
 
                 {/*<PDFViewer className="pdf-viewer">*/}
@@ -273,10 +259,10 @@ class MedicalBillPage extends Component {
                 {/*    />*/}
                 {/*</PDFViewer>*/}
 
-                <MedicalBillPreviewModalComponent
+                <DiagnosticReportPreviewModalComponent
                     showModal={showPdfPreview}
                     toggleModal={this.toggleModal}
-                    medicalBillForm={medicalBillForm}
+                    diagnosticReportForm={diagnosticReportForm}
                 />
             </div>
         );
@@ -285,15 +271,15 @@ class MedicalBillPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        invoiceNumber: state.auth.invoiceNumber,
-        getInvoiceDetailsCallStatus: state.auth.getInvoiceDetailsCallStatus
+        diagnosticReportNumber: state.auth.diagnosticReportNumber,
+        getDiagnosticReportNumberDetailsCallStatus: state.auth.getDiagnosticReportNumberDetailsCallStatus
     }
 };
 
 const mapDispatchToProps = dispatch => ({
-    saveInvoiceDetails: (...args) => dispatch(saveInvoiceDetails(...args)),
-    getInvoiceDetails: (...args) => dispatch(getInvoiceDetails(...args))
+    saveDiagnosticReportNumberDetails: (...args) => dispatch(saveDiagnosticReportNumberDetails(...args)),
+    getDiagnosticReportNumberDetails: (...args) => dispatch(getDiagnosticReportNumberDetails(...args))
 });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MedicalBillPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DiagnosticReportPage);

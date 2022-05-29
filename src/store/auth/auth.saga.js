@@ -5,6 +5,8 @@ import {
     setAuthSaveUserLogoutCallStatus,
     setAuthSaveUserSignupCallStatus,
     setAuthUserSignup,
+    setDiagnosticReportNumberDetails,
+    setGetDiagnosticReportNumberDetailsStatus,
     setGetInvoiceDetailsStatus,
     setGetPaymentDetailsForAdmissionNumberCallStatus,
     setInterestFilledPatients, setInvoiceDetails,
@@ -250,3 +252,42 @@ export function* saveInvoiceDetailsSaga(action) {
 
     }
 }
+
+
+
+
+export function* getDiagnosticReportDetailsSaga(action) {
+    // const { admitForm } = action.payload;
+    const { admissionNumber } = action.payload;
+    try {
+        yield put(setGetDiagnosticReportNumberDetailsStatus(HttpCallStates.LOADING));
+        const url = `https://zvbd8j7btc.execute-api.ap-south-1.amazonaws.com/stage01/diagnosticreportdetails`;
+
+        const response = yield rawAxios.get(url);
+        const latestDiagnosticReportNumber = +response.data.body.report_number + 1;
+        yield put(setDiagnosticReportNumberDetails(latestDiagnosticReportNumber));
+        yield put(setGetDiagnosticReportNumberDetailsStatus(HttpCallStates.SUCCESS));
+    } catch (e) {
+        yield put(setGetPaymentDetailsForAdmissionNumberCallStatus(HttpCallStates.ERROR));
+    }
+}
+
+export function* saveDiagnosticReportDetailsSaga(action) {
+    const { invoiceDetails } = action.payload;
+
+    const data = {
+        ...invoiceDetails
+    }
+
+    try {
+        const url = 'https://zvbd8j7btc.execute-api.ap-south-1.amazonaws.com/stage01/diagnosticreportdetails';
+
+        const response = yield rawAxios.post(url, data);
+        // alert('admin record saved successfully');
+        // // set response
+
+    } catch (e) {
+
+    }
+}
+
