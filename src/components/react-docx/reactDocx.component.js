@@ -200,6 +200,29 @@ import headerImage from "./../../assets/imageForHeader.jpg";
      return text;
  }
 
+ const getSixthPageText = (admitForm) => {
+     if (!admitForm) {
+         return ''
+     }
+     const totalAmount = parseInt(admitForm.advancePaid) + parseInt(admitForm.amountRemaining);
+     const amountInWordsString = capitalizeFirstLetter(numToWords(totalAmount));
+     const age = getAge(admitForm.dateOfBirth);
+     const operatedTextArray = admitForm.operatedFor;
+     let operatedText = '';
+     if (operatedTextArray.length > 1) {
+         operatedText = "procedures " + operatedTextArray.join(" and ");
+     } else {
+         operatedText = "procedure " + operatedTextArray[0];
+     }
+     const text = `This is to confirm that ${admitForm.patientName}, \n 
+     aged ${age} Years, ${admitForm.sex}, C/O ${admitForm.careOf || ''} residing in \n 
+     ${admitForm.address}, ${admitForm.pinCode} \n 
+     have paid a total sum of ${totalAmount} Rs/- (${amountInWordsString}) \n 
+     for the ${operatedText} \n
+     to Sri devichandra hospital on ${formatDateString(admitForm.dateOfDischarge)}.`;
+     return text;
+ }
+
  const paymentDetailsTableData = (paymentDetailsForm, totalAmount) => {
      const data = [
          {
@@ -328,6 +351,16 @@ import headerImage from "./../../assets/imageForHeader.jpg";
                      <View style={styles.section}>
                          <Text style={styles.pageHeading}>DISCHARGE SUMMARY</Text>
                          <Text style={styles.pageContent}>{getFifthPageText(admitForm)}</Text>
+                         <Text style={styles.pageFooter}>MEDICAL SUPERINTENDENT</Text>
+                     </View>
+                 </View>
+             </Page>
+             <Page size="A4" style={styles.page}>
+                 <View style={styles.sectionWithImage}>
+                     <Image style={styles.headerImage} src={headerImage} />
+                     <View style={styles.section}>
+                         <Text style={styles.pageHeading}>PAYMENT RECEIPT</Text>
+                         <Text style={styles.pageContent}>{getSixthPageText(admitForm)}</Text>
                          <Text style={styles.pageFooter}>MEDICAL SUPERINTENDENT</Text>
                      </View>
                  </View>
