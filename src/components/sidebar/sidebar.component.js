@@ -5,6 +5,9 @@ import IconButton from '@mui/material/IconButton';
 import "./sidebar.scss";
 import {NavLink} from "react-router-dom";
 
+const sideBarMenuItems = {
+    outPatientForm: 'Outpatient Form',
+}
 
 
 
@@ -76,7 +79,7 @@ class SidebarComponent extends React.Component<Props> {
                     />
                     <SidebarMenuItemComponent
                         icon={<span className="dat-icon dat-calibration" />}
-                        name="Admit Form"
+                        name={sideBarMenuItems.outPatientForm}
                         url={admitFormUrl}
                         isActive={(match, location) => {
                             return match || location.pathname.includes('/admitForm');

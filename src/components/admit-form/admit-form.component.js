@@ -134,7 +134,7 @@ class AdmitFormComponent extends React.Component<Props> {
             <div className="admit-form-container">
 
                 <h1 className="admit-form-title">
-                    {editModeForAdmitForm ? 'Edit Admit Form' : 'Admit Form'}
+                    {editModeForAdmitForm ? 'Edit Outpatient Form' : 'Outpatient Form'}
                 </h1>
                 {editModeForAdmitForm ? (
                     <div className="edit-close-wrapper">
@@ -361,7 +361,7 @@ class AdmitFormComponent extends React.Component<Props> {
                             <FormLabel
                                 className="form-label-name"
                             >
-                                Date of admission *
+                                Date of Admission *
                             </FormLabel>
                             <TextField
                                 variant="outlined"
@@ -384,7 +384,7 @@ class AdmitFormComponent extends React.Component<Props> {
                             <FormLabel
                                 className="form-label-name"
                             >
-                                Date of surgery *
+                                Date of Surgery *
                             </FormLabel>
                             <TextField
                                 variant="outlined"
@@ -402,7 +402,7 @@ class AdmitFormComponent extends React.Component<Props> {
                             <FormLabel
                                 className="form-label-name"
                             >
-                                Date of discharge *
+                                Date of Discharge *
                             </FormLabel>
                             <TextField
                                 variant="outlined"
@@ -541,7 +541,7 @@ class AdmitFormComponent extends React.Component<Props> {
                             <FormLabel
                                 className="form-label-name"
                             >
-                                Advance paid *
+                                Advance Paid *
                             </FormLabel>
                             <TextField
                                 variant="outlined"
@@ -556,7 +556,7 @@ class AdmitFormComponent extends React.Component<Props> {
                             <FormLabel
                                 className="form-label-name"
                             >
-                                Amount remaining *
+                                Amount Remaining *
                             </FormLabel>
                             <TextField
                                 variant="outlined"
@@ -574,7 +574,7 @@ class AdmitFormComponent extends React.Component<Props> {
                             <FormLabel
                                 className="form-label-name"
                             >
-                                Upload documents
+                                Upload Documents
                             </FormLabel>
                             <div
                                 className="dat-file-upload-content"

@@ -20,10 +20,10 @@ const AdmittedDataHeaderTitles = {
     sex: 'Sex',
     mobile: 'Mobile',
     alternateMobile: 'Alternate Mobile',
-    careOf: 'Care Of',
-    dateOfAdmission: 'Date Of Admission',
-    dateOfSurgery: 'Date Of Surgery',
-    dateOfDischarge: 'Date Of Discharge',
+    careOf: 'Care of',
+    dateOfAdmission: 'Date of Admission',
+    dateOfSurgery: 'Date of Surgery',
+    dateOfDischarge: 'Date of Discharge',
     advancePaid: 'Advance Paid',
     amountRemaining: 'Amount Remaining',
     totalAmount: 'Total Amount'
@@ -138,7 +138,7 @@ class AdminDashboardComponent extends React.Component<Props> {
                             onChange={this.handleSearchQuery}
                             variant="outlined"
                             size="small"
-                            placeholder="search "
+                            placeholder="Search "
                         />
                         {/*<input  onChange={this.handleSearchQuery}/>*/}
                     </div>
