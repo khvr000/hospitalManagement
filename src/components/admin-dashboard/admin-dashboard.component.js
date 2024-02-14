@@ -4,8 +4,6 @@ import AdmittedDetailsItemComponent from "./admitted-details-item/admitted-detai
 import "./admin-dashboard.component.scss";
 import {sortItems} from "../../utils/validations";
 import {TextField} from "@material-ui/core";
-import ReactDocxComponent from "../react-docx/reactDocx.component";
-import { PDFViewer } from '@react-pdf/renderer';
 import PaymentBreakupModalComponent from "../paymentBreakupModal/paymentBreakupModal.component";
 
 type Props = {
@@ -16,14 +14,14 @@ type Props = {
 const AdmittedDataHeaderTitles = {
     admissionNumber: 'Admission Number',
     patientName: 'Patient Name',
-    dateOfBirth: 'Date of Birth',
+    dateOfBirth: 'Date Of Birth',
     sex: 'Sex',
     mobile: 'Mobile',
     alternateMobile: 'Alternate Mobile',
-    careOf: 'Care of',
-    dateOfAdmission: 'Date of Admission',
-    dateOfSurgery: 'Date of Surgery',
-    dateOfDischarge: 'Date of Discharge',
+    careOf: 'Care Of',
+    dateOfAdmission: 'Date Of Admission',
+    dateOfSurgery: 'Date Of Surgery',
+    dateOfDischarge: 'Date Of Discharge',
     advancePaid: 'Advance Paid',
     amountRemaining: 'Amount Remaining',
     totalAmount: 'Total Amount'
@@ -127,7 +125,7 @@ class AdminDashboardComponent extends React.Component<Props> {
             <div className="admin-dashboard-container">
                 <div className="dashboard-container-header">
                     <h1 className="dashboard-container-title">
-                        Dashboard
+                        Outpatient Data
                     </h1>
                 </div>
                 <div className="dashboard-container-content">

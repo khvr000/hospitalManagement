@@ -71,7 +71,7 @@ class SidebarComponent extends React.Component<Props> {
                 <div className="dat-sidebar-menu-item-list-wrapper">
                     <SidebarMenuItemComponent
                         icon={<span className="dat-icon dat-calibration" />}
-                        name="Dashboard"
+                        name="Outpatient Data"
                         url={dashboardUrl}
                         isActive={(match, location) => {
                             return match || location.pathname.includes('/dashboard');
