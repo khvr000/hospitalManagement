@@ -1,3 +1,5 @@
+import {sortAdmittedPatients} from "../store/auth/auth.helper";
+
 export const isDatasetNameValid = (datasetName) => {
     return /^[a-zA-Z0-9_.\- ]*$/.test(datasetName);
 };
@@ -172,6 +174,10 @@ export const nonMandatoryAmountValidation = (amount) => {
 
 export const sortItems = (items, order='ascending', key, subKey) => {
     if (!items) return [];
+
+    if(key === 'admission_number') {
+        return sortAdmittedPatients(items);
+    }
 
     if (subKey) {
         let sortAlphaNum = (a, b) => a?.[key]?.[subKey]?.toString().localeCompare(b?.[key]?.[subKey], 'en', { numeric: true });

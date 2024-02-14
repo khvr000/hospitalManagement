@@ -1,5 +1,6 @@
 import AuthTypes from "./auth.types";
 import {HttpCallStates} from "../../config/http.config";
+import {sortAdmittedPatients} from "./auth.helper";
 
 const INITIAL_STATE = {
     checkAuthUserLoginCallStatus: HttpCallStates.UNTOUCHED,
@@ -56,7 +57,7 @@ const appAuthReducer  = (state = INITIAL_STATE, action) => {
 
             return {
                 ...state,
-                admittedPatients
+                admittedPatients: sortAdmittedPatients(admittedPatients)
             }
         }
 
